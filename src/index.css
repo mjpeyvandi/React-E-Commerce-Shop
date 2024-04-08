@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  @font-face {
+    font-family: "integral-bold";
+    src: url(/src/assets/fonts/Fontspring-DEMO-integralcf-demibold.otf);
+  }
+  @font-face {
+    font-family: "integral-medium";
+    src: url(/src/assets/fonts/Fontspring-DEMO-integralcf-medium.otf);
+  }
+  @font-face {
+    font-family: "satoshi-bold";
+    src: url(/src/assets/fonts/Satoshi-Bold.otf);
+  }
+  @font-face {
+    font-family: "satoshi-light";
+    src: url(/src/assets/fonts/Satoshi-Light.otf);
+  }
+  @font-face {
+    font-family: "satoshi-regular";
+    src: url(/src/assets/fonts/Satoshi-Regular.otf);
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
