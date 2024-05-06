@@ -1,0 +1,31 @@
+import React from 'react'
+
+import { Card } from "./Card";
+import { Button } from "./Button";
+
+export const PreviewSection = ({titr, products, border}) => {
+  return (
+    <div className="w-full h-[42rem] bg-white relative">
+        <div className={`w-full h-full mx-auto container ${border}`}>
+          <div className="w-full h-full flex flex-col justify-between items-center gap-5 py-14">
+            <h2 className="font-titr text-5xl h-1/6">{titr}</h2>
+            {/*product card */}
+            <div className="w-full h-5/6 grid grid-cols-4 gap-4">
+              {products.map(item=>(
+                <Card img={item.image} name={item.product_name} rate={item.rate} price={item.price} key={item.id}/>
+              ))}
+            </div>
+            <div className="w-full flex flex-row justify-center items-center mt-3">
+              <Button
+                bg={"bg-white"}
+                textColor={"text-black"}
+                border={"border-gray-300"}
+              >
+                View All
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+  )
+}
