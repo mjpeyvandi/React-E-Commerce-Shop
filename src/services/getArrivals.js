@@ -6,7 +6,7 @@ export async function getArrivals() {
     .select("*")
     // Filter
     .gt("created", "2024-01-01 00:00:00")
-    .gt("rate", "3.5")
+    .gt("rate", "3.8")
     .limit(4)
 
     if(error){
