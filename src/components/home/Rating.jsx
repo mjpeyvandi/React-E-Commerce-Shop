@@ -9,7 +9,6 @@ export const Rating = ({rate_Product}) => {
   const [rate, setRating] = useState(rate_Product);
   const starsFilled = Math.floor(rate)
   const hasHalfStar = rate - starsFilled > 0
-  console.log(hasHalfStar)
   return (
     <div>
       <div className="flex flex-row justify-start items-center gap-1">

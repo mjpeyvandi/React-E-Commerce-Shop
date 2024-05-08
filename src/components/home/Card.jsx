@@ -8,7 +8,7 @@ export const Card = ({ name, img, rate, price }) => {
         <img
           src={img}
           alt="product"
-          className="w-full h-full object-contain object-center rounded-2xl"
+          className="w-full h-full object-cover object-center rounded-2xl"
         />
       </div>
       <h2 className="font-satoshi-b text-xl">{name}</h2>
