@@ -1,4 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { getArrivals } from "../services/getArrivals";
+import { getTopSell } from "../services/getTopSell";
+
+import { Button } from "../components/home/Button";
+import { PreviewSection } from "../components/home/PreviewSection";
+import { CardStyle } from "../components/home/CardStyle";
+import { Slider } from "../components/home/Slider";
 
 import banner from "../assets/images/Rectangle 2.jpg";
 import versace from "../assets/images/versace.png";
@@ -6,8 +14,21 @@ import zara from "../assets/images/zara.png";
 import gucci from "../assets/images/gucci.png";
 import prada from "../assets/images/prada.png";
 import calvin from "../assets/images/calvin.png";
+import casual from "../assets/images/casual.png";
+import party from "../assets/images/party.png";
+import gym from "../assets/images/gym.png";
+import formal from "../assets/images/formal.png";
+
 
 export const Home = () => {
+  const [newProducts, setNewProducts] = useState([]);
+  const [bestSelling, setBestSelling] = useState([]);
+
+  useEffect(() => {
+    getArrivals().then((data) => setNewProducts(data));
+    getTopSell().then((data) => setBestSelling(data));    
+  }, []);
+
   return (
     <div className="w-full h-full">
       {/*header*/}
@@ -23,9 +44,9 @@ export const Home = () => {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </p>
-              <button className="items-center rounded-3xl bg-black text-white w-48 h-12">
+              <Button bg={"bg-black"} textColor={"text-white"}>
                 Shop Now
-              </button>
+              </Button>
               <div className="w-full flex flex-row justify-between items-center align-baseline gap-10 ">
                 <div className="w-1/3 flex flex-col justify-center items-start border-r-2 border-gray-400">
                   <p className="font-satoshi-b text-4xl">200+</p>
@@ -65,6 +86,47 @@ export const Home = () => {
           <img src={prada} alt="brands" />
           <img src={calvin} alt="brands" />
         </div>
+      </div>
+
+      {/*new Arrivals */}
+      <PreviewSection
+        titr={"NEW ARRIVALS"}
+        products={newProducts}
+        border={"border-b-[1px] border-gray-300"}
+      />
+
+      {/*Top selling */}
+      <PreviewSection titr={"TOP SELLING"} products={bestSelling} />
+
+      {/*styles section */}
+      <div className="w-full h-[42rem] bg-white mt-4">
+        <div className="container w-full h-full bg-gray-100 mx-auto rounded-[2.5rem] px-10 py-16">
+          <div className="w-full h-1/6 text-center">
+            <h2 className="font-titr text-5xl">BROWSE BY dress STYLE</h2>
+          </div>
+          <div className="w-full h-5/6 grid grid-cols-3 gap-4">
+            <CardStyle
+              span={"col-span-1"}
+              image={casual}
+              text={"Casual"}
+              scale={"scale-x-[-1]"}
+            />
+            <CardStyle
+              span={"col-span-2"}
+              image={formal}
+              text={"Formal"}
+              scale={"scale-x-[-1]"}
+            />
+            <CardStyle span={"col-span-2"} image={party} text={"Party"} />
+            <CardStyle span={"col-span-1"} image={gym} text={"Gym"} />
+          </div>
+        </div>
+      </div>
+
+      {/*reviews section */}
+
+      <div className="w-full h-80 bg-white my-16">
+        <Slider/>
       </div>
     </div>
   );
