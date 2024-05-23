@@ -33,6 +33,8 @@ export const PreviewSection = ({ titr, products, border }) => {
               bg={"bg-white"}
               textColor={"text-black"}
               border={"border-gray-300"}
+              width={"w-48"}
+              height={"h-12"}
             >
               View All
             </Button>

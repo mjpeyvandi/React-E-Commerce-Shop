@@ -44,7 +44,7 @@ export const Home = () => {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </p>
-              <Button bg={"bg-black"} textColor={"text-white"}>
+              <Button bg={"bg-black"} textColor={"text-white"} width={"w-48"} height={"h-12"}>
                 Shop Now
               </Button>
               <div className="w-full flex flex-row justify-between items-center align-baseline gap-10 ">
