@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+
 import { Navbar } from './Navbar'
+import { Footer } from './Footer'
 
 export const AppLayout = ({children}) => {
   const [Modal, setOp] = useState(false)
@@ -14,7 +16,7 @@ export const AppLayout = ({children}) => {
         </main>
 
         <footer className={`${Modal ? 'opacity-10' : ''}`}>
-            <p>footer</p>
+            <Footer/>
         </footer>
     </div>
   )
