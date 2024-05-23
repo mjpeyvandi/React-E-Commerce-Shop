@@ -1,9 +1,9 @@
 import React from "react";
 
-export const Button = ({width,height,bg,textColor,border,children}) => {
+export const Button = ({width,height,bg,textColor,border,font,children}) => {
   return (
-    <div>
-      <button className={`${width} ${height} items-center rounded-3xl ${border ? 'border-[1px]'  : ''} ${border} ${bg} ${textColor} font-satoshi`}>
+    <div className={`${width} ${height}`}>
+      <button className={`h-full w-full items-center rounded-full ${border ? 'border-[1px]'  : ''} ${border} ${bg} ${textColor} ${font}`}>
         {children}
       </button>
     </div>

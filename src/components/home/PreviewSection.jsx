@@ -35,6 +35,7 @@ export const PreviewSection = ({ titr, products, border }) => {
               border={"border-gray-300"}
               width={"w-48"}
               height={"h-12"}
+              font={"font-satoshi"}
             >
               View All
             </Button>
