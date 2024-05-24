@@ -6,6 +6,7 @@ import { FaRegUserCircle } from "@react-icons/all-files/fa/FaRegUserCircle";
 
 import { Search } from "./Search";
 import { ModalMenu } from "./ModalMenu";
+import { Link } from "react-router-dom";
 
 export const Navbar = ({setOp}) => {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +21,10 @@ export const Navbar = ({setOp}) => {
               onMouseEnter={() => setShowModal(true) & setOp(true)}
               onMouseLeave={() => setShowModal(false) & setOp(false)}
             >
-              Shop <GoChevronDown />
+              <Link to={'/main/products'}>
+               Shop  
+              </Link>
+              <GoChevronDown />
             </li>
             <li className="h-full flex items-center cursor-pointer hover:font-bold">On Sale</li>
             <li className="h-full flex items-center cursor-pointer hover:font-bold">
