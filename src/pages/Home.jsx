@@ -18,7 +18,7 @@ import casual from "../assets/images/casual.png";
 import party from "../assets/images/party.png";
 import gym from "../assets/images/gym.png";
 import formal from "../assets/images/formal.png";
-
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [newProducts, setNewProducts] = useState([]);
@@ -26,7 +26,7 @@ export const Home = () => {
 
   useEffect(() => {
     getArrivals().then((data) => setNewProducts(data));
-    getTopSell().then((data) => setBestSelling(data));    
+    getTopSell().then((data) => setBestSelling(data));
   }, []);
 
   return (
@@ -44,8 +44,14 @@ export const Home = () => {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </p>
-              <Button bg={"bg-black"} textColor={"text-white"} width={"w-48"} height={"h-12"} font={"font-satoshi"}>
-                Shop Now
+              <Button
+                bg={"bg-black"}
+                textColor={"text-white"}
+                width={"w-48"}
+                height={"h-12"}
+                font={"font-satoshi"}
+              >
+                <Link to={"/products"}>Shop Now</Link>
               </Button>
               <div className="w-full flex flex-row justify-between items-center align-baseline gap-10 ">
                 <div className="w-1/3 flex flex-col justify-center items-start border-r-2 border-gray-400">
@@ -126,7 +132,7 @@ export const Home = () => {
       {/*reviews section */}
 
       <div className="w-full h-80 bg-white my-16">
-        <Slider/>
+        <Slider />
       </div>
     </div>
   );

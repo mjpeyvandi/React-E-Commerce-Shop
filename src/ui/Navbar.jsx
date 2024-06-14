@@ -8,7 +8,7 @@ import { Search } from "./Search";
 import { ModalMenu } from "./ModalMenu";
 import { Link } from "react-router-dom";
 
-export const Navbar = ({setOp}) => {
+export const Navbar = ({ setOp }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -21,25 +21,29 @@ export const Navbar = ({setOp}) => {
               onMouseEnter={() => setShowModal(true) & setOp(true)}
               onMouseLeave={() => setShowModal(false) & setOp(false)}
             >
-              <Link to={'/main/products'}>
-               Shop  
-              </Link>
+              <Link to={"/products"}>Shop</Link>
               <GoChevronDown />
             </li>
-            <li className="h-full flex items-center cursor-pointer hover:font-bold">On Sale</li>
             <li className="h-full flex items-center cursor-pointer hover:font-bold">
-              New Arrivals
+              <Link to={"/products/onsale"}>On Sale</Link>
             </li>
-            <li className="h-full flex items-center cursor-pointer hover:font-bold">Brands</li>
+            <li className="h-full flex items-center cursor-pointer hover:font-bold">
+              <Link to={"/products/new"}>New Arrivals</Link>
+            </li>
+            <li className="h-full flex items-center cursor-pointer hover:font-bold">
+              Brands
+            </li>
           </ul>
           <Search />
           <div className="w-16 flex flex-row justify-between items-center">
-            <FiShoppingCart className="size-6 cursor-pointer" />
+            <Link to={"/cart"}>
+              <FiShoppingCart className="size-6 cursor-pointer" />
+            </Link>
             <FaRegUserCircle className="size-6 cursor-pointer" />
           </div>
         </div>
       </div>
-        <ModalMenu state={showModal} setOp={setOp} />
+      <ModalMenu state={showModal} setOp={setOp} />
     </>
   );
 };

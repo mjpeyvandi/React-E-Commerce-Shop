@@ -13,10 +13,14 @@ function App() {
       <AppLayout>
         <Routes>
           <Route index path="/" element={<Home />} />
-          <Route exact path="/main" element={<Home />} />
-          <Route path="/main/products" element={<Products />}>
-            <Route path="/main/products/:id" element={<Product />}/>
-          </Route>
+          <Route path="/products" element={<Products />}/>
+          <Route path="/products/:style" element={<Products />}/>
+          <Route path="/products/:category" element={<Products />}/>
+          <Route path="/products/:style/:category" element={<Products />}/>
+          <Route path="/products/onsale" element={<Products />}/>
+          <Route path="/products/new" element={<Products />}/>
+          <Route path="/products/:style/:category/:id" element={<Product />}/>
+          
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<Order />} />
         </Routes>
