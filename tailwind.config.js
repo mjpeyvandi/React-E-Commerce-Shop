@@ -18,7 +18,7 @@ module.exports = {
         "titr-m": ["integral-medium", "sans-serif"],
         "satoshi-b": ["satoshi-bold", "sans-serif"],
         "satoshi-l": ["satoshi-light", "sans-serif"],
-        satoshi: ["satoshi-regular", "sans-serif"],
+        "satoshi": ["satoshi-regular", "sans-serif"],
       },
     },
   },
