@@ -1,20 +1,26 @@
 import React from 'react'
+
+import { FilterSection } from '../components/products/FilterSection';
+
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
+
 
 export const Products = () => {
   return (
     <div className='w-full h-[80rem]'>
       <div className="container mx-auto h-full border-t-[0.2px] border-t-gray-300">
-        <div className="h-full w-full bg-slate-500 flex flex-col justify-start items-center">
+        <div className="h-full w-full flex flex-col justify-start items-center">
           {/* Route section */}
-          <div className="w-full h-[5%] bg-red-400 flex flex-row justify-start items-center font-satoshi-l gap-2">
+          <div className="w-full h-[5%] flex flex-row justify-start items-center font-satoshi-l gap-2">
             <p className='text-gray-500'>{`Home`}</p> <MdKeyboardArrowRight className='size-5 opacity-45' /> <p>Products</p>
           </div>
 
           {/* content Section */}
           <div className="w-full h-full flex flex-row justify-between items-start gap-5 bg-green-300">
             {/*filter section*/}
-            <div className="w-[23%] h-3/4 bg-yellow-100"></div>
+            <div className="w-[23%] h-3/4 bg-yellow-100">
+              <FilterSection/>
+            </div>
             {/*products section*/}
             <div className="w-[77%] h-full bg-yellow-300 flex flex-col justify-start items-center">
               {/*sorting section*/}
