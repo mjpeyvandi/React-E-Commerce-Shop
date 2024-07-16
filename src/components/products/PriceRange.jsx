@@ -45,7 +45,7 @@ const PriceRange = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-7">
       <div className="range-slider relative w-full h-1.5 bg-gray-300">
         <div className="slider-track absolute h-full bg-black"></div>
         <input

@@ -18,7 +18,7 @@ export const Products = () => {
           {/* content Section */}
           <div className="w-full h-full flex flex-row justify-between items-start gap-5 bg-green-300">
             {/*filter section*/}
-            <div className="w-[23%] h-3/4 bg-yellow-100">
+            <div className="w-[23%] h-[1140px] bg-yellow-100">
               <FilterSection/>
             </div>
             {/*products section*/}
