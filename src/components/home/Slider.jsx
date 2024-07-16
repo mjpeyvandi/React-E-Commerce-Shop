@@ -9,7 +9,6 @@ import { CardReview } from "./CardReview";
 export const Slider = () => {
     const [reviews, setReviews] = useState([])
     const [currentIndex, setIndex] = useState(0)
-    console.log(currentIndex)
     useEffect(()=>{
         getReviews().then((data)=> setReviews(data))
     },[])
@@ -38,8 +37,8 @@ export const Slider = () => {
       <div className="h-5/6 w-full flex flex-row justify-start items-center gap-5 overflow-hidden">
         {
           reviews.slice(currentIndex, currentIndex + 3)
-          .map((item)=>(
-            <CardReview rate={item.rate} name={item.name} comment={item.comment}/>
+          .map((item, id)=>(
+            <CardReview rate={item.rate} name={item.name} comment={item.comment} key={id}/>
           ))
         }
       </div>
