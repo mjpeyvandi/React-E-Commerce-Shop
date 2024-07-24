@@ -19,7 +19,7 @@ import Visa from "../assets/images/Visa.png"
 
 export const Footer = () => {
   return (
-    <div className="w-full h-[30rem] bg-gray-200 absolute mt-20">
+    <div className="w-full h-[30rem] bg-gray-200 absolute mt-32">
       <div className="container mx-auto w-full h-full flex flex-col items-center justify-between relative bottom-24">
         {/*offer section */}
         <div className="w-full h-48 bg-black rounded-3xl py-8 px-16">
