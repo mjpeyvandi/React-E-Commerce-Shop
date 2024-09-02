@@ -1,11 +1,10 @@
 import supabase from './supabase'
 
-export async function getProducts(){
+export async function getProducts(start, end){
   let { data , error } = await supabase
   .from('products')
   .select('*')
-  .range(0, 8)
-
+  .range(start, end) 
   if(error){
     console.log(error)
   }

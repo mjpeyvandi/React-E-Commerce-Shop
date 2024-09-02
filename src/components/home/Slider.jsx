@@ -9,7 +9,6 @@ import { CardReview } from "./CardReview";
 export const Slider = () => {
     const [reviews, setReviews] = useState([])
     const [currentIndex, setIndex] = useState(0)
-    console.log(currentIndex)
     useEffect(()=>{
         getReviews().then((data)=> setReviews(data))
     },[])

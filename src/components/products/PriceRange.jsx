@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PriceRange.css";
 
-const PriceRange = () => {
+const PriceRange = ({onPriceChange}) => {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(500);
   const minGap = 130;
@@ -10,6 +10,7 @@ const PriceRange = () => {
 
   useEffect(() => {
     setArea();
+    onPriceChange(minValue, maxValue)
   // eslint-disable-next-line no-use-before-define, react-hooks/exhaustive-deps
   }, [minValue, maxValue]);
 
