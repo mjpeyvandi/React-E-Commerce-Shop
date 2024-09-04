@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import filters from "../../assets/images/filters.png";
 import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
@@ -8,6 +8,7 @@ import PriceRange from "./PriceRange";
 import Color from "./Color";
 import { Size } from "./Size";
 import { Button } from "../home/Button";
+import useFilters from "../../context/FiltersContext";
 
 export const FilterSection = () => {
   const [showPriceRange, setShowPriceRange] = useState(true);
@@ -19,19 +20,31 @@ export const FilterSection = () => {
   const [showParty, setShowParty] = useState(false);
   const [showGym, setShowGym] = useState(false);
 
-  const [Filters, setFilter] = useState({
-    category: [],
-    lowPrice: "",
-    maxPrice: "",
-    colors: [],
-    sizes: [],
-    style: {
-      casual: [],
-      party: [],
-      gym: [],
-      formal: false,
-    },
-  });
+  const {
+    Filters,
+    handleCategoryChange,
+    handlePriceChange,
+    handleColorChange,
+    handleSizeChange,
+    handleStyleCasualChange,
+    handleStylePartyChange,
+    handleStyleGymChange,
+    handleStyleFormalChange
+   } = useFilters();
+
+  // const [Filters, setFilter] = useState({
+  //   category: [],
+  //   lowPrice: "",
+  //   maxPrice: "",
+  //   colors: [],
+  //   sizes: [],
+  //   style: {
+  //     casual: [],
+  //     party: [],
+  //     gym: [],
+  //     formal: false,
+  //   },
+  // });
 
   const category = ["T-Shirt", "Shirts", "Shorts", "Hoddie", "Jeans"];
   const colors = [
@@ -61,9 +74,9 @@ export const FilterSection = () => {
   const partys = ["maxi", "midi", "mini"];
   const gyms = ["shirt", "short"];
 
-  useEffect(() => {
-    console.log(Filters);
-  }, [Filters]);
+  // useEffect(() => {
+  //   console.log(Filters);
+  // }, [Filters]);
 
   const togglePriceRange = () => {
     setShowPriceRange(!showPriceRange);
@@ -106,120 +119,120 @@ export const FilterSection = () => {
     }
   };
 
-  const handleCategoryChange = (event, item) => {
-    const isChecked = event.target.checked;
+  // const handleCategoryChange = (event, item) => {
+  //   const isChecked = event.target.checked;
 
-    setFilter((prevFilter) => {
-      const updateCategory = isChecked
-        ? [...prevFilter.category, item]
-        : prevFilter.category.filter((i) => i !== item);
+  //   setFilter((prevFilter) => {
+  //     const updateCategory = isChecked
+  //       ? [...prevFilter.category, item]
+  //       : prevFilter.category.filter((i) => i !== item);
 
-      return {
-        ...prevFilter,
-        category: updateCategory,
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       category: updateCategory,
+  //     };
+  //   });
+  // };
 
-  const handlePriceChange = (minPrice, maxPrice) => {
-    setFilter((prevFilter) => ({
-      ...prevFilter,
-      lowPrice: minPrice,
-      maxPrice: maxPrice,
-    }));
-  };
+  // const handlePriceChange = (minPrice, maxPrice) => {
+  //   setFilter((prevFilter) => ({
+  //     ...prevFilter,
+  //     lowPrice: minPrice,
+  //     maxPrice: maxPrice,
+  //   }));
+  // };
 
-  const handleColorChange = (color) => {
-    const isColor = Filters.colors.includes(color);
-    setFilter((prevFilter) => {
-      const updateColor = !isColor
-        ? [...prevFilter.colors, color]
-        : prevFilter.colors.filter((i) => i !== color);
+  // const handleColorChange = (color) => {
+  //   const isColor = Filters.colors.includes(color);
+  //   setFilter((prevFilter) => {
+  //     const updateColor = !isColor
+  //       ? [...prevFilter.colors, color]
+  //       : prevFilter.colors.filter((i) => i !== color);
 
-      return {
-        ...prevFilter,
-        colors: updateColor,
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       colors: updateColor,
+  //     };
+  //   });
+  // };
 
-  const handleSizeChange = (size) => {
-    const isSize = Filters.sizes.includes(size);
-    setFilter((prevFilter) => {
-      const updateSize = !isSize
-        ? [...prevFilter.sizes, size]
-        : prevFilter.sizes.filter((i) => i !== size);
+  // const handleSizeChange = (size) => {
+  //   const isSize = Filters.sizes.includes(size);
+  //   setFilter((prevFilter) => {
+  //     const updateSize = !isSize
+  //       ? [...prevFilter.sizes, size]
+  //       : prevFilter.sizes.filter((i) => i !== size);
 
-      return {
-        ...prevFilter,
-        sizes: updateSize,
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       sizes: updateSize,
+  //     };
+  //   });
+  // };
 
-  const handleStyleCasualChange = (event, item) => {
-    const isChecked = event.target.checked;
-    setFilter((prevFilter) => {
-      const updateStyleCasual = isChecked
-        ? [...prevFilter.style.casual, item]
-        : prevFilter.style.casual.filter((i) => i !== item);
+  // const handleStyleCasualChange = (event, item) => {
+  //   const isChecked = event.target.checked;
+  //   setFilter((prevFilter) => {
+  //     const updateStyleCasual = isChecked
+  //       ? [...prevFilter.style.casual, item]
+  //       : prevFilter.style.casual.filter((i) => i !== item);
 
-      return {
-        ...prevFilter,
-        style: {
-          ...prevFilter.style,
-          casual: updateStyleCasual,
-        },
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       style: {
+  //         ...prevFilter.style,
+  //         casual: updateStyleCasual,
+  //       },
+  //     };
+  //   });
+  // };
 
-  const handleStylePartyChange = (event, item) => {
-    const isChecked = event.target.checked;
-    setFilter((prevFilter) => {
-      const updateStyleParty = isChecked
-        ? [...prevFilter.style.party, item]
-        : prevFilter.style.party.filter((i) => i !== item);
+  // const handleStylePartyChange = (event, item) => {
+  //   const isChecked = event.target.checked;
+  //   setFilter((prevFilter) => {
+  //     const updateStyleParty = isChecked
+  //       ? [...prevFilter.style.party, item]
+  //       : prevFilter.style.party.filter((i) => i !== item);
 
-      return {
-        ...prevFilter,
-        style: {
-          ...prevFilter.style,
-          party: updateStyleParty,
-        },
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       style: {
+  //         ...prevFilter.style,
+  //         party: updateStyleParty,
+  //       },
+  //     };
+  //   });
+  // };
 
-  const handleStyleGymChange = (event, item) => {
-    const isChecked = event.target.checked;
-    setFilter((prevFilter) => {
-      const updateStyleGym = isChecked
-        ? [...prevFilter.style.gym, item]
-        : prevFilter.style.gym.filter((i) => i !== item);
+  // const handleStyleGymChange = (event, item) => {
+  //   const isChecked = event.target.checked;
+  //   setFilter((prevFilter) => {
+  //     const updateStyleGym = isChecked
+  //       ? [...prevFilter.style.gym, item]
+  //       : prevFilter.style.gym.filter((i) => i !== item);
 
-      return {
-        ...prevFilter,
-        style: {
-          ...prevFilter.style,
-          gym: updateStyleGym,
-        },
-      };
-    });
-  };
+  //     return {
+  //       ...prevFilter,
+  //       style: {
+  //         ...prevFilter.style,
+  //         gym: updateStyleGym,
+  //       },
+  //     };
+  //   });
+  // };
 
-  const handleStyleFormalChange = (event) => {
-    const isChecked = event.target.checked;
-    setFilter((prevFilter) => {
-      return {
-        ...prevFilter,
-        style: {
-          ...prevFilter.style,
-          formal: isChecked,
-        },
-      };
-    });
-  };
+  // const handleStyleFormalChange = (event) => {
+  //   const isChecked = event.target.checked;
+  //   setFilter((prevFilter) => {
+  //     return {
+  //       ...prevFilter,
+  //       style: {
+  //         ...prevFilter.style,
+  //         formal: isChecked,
+  //       },
+  //     };
+  //   });
+  // };
 
   return (
     <div
@@ -410,7 +423,7 @@ export const FilterSection = () => {
                 type="checkbox"
                 className="accent-gray-300"
                 checked={Filters.style.formal}
-                onChange={(event)=> handleStyleFormalChange(event)}
+                onChange={(event) => handleStyleFormalChange(event)}
               />{" "}
               Formal
             </label>

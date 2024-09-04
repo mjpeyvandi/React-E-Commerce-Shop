@@ -38,7 +38,7 @@ export const Slider = () => {
         {
           reviews.slice(currentIndex, currentIndex + 3)
           .map((item)=>(
-            <CardReview rate={item.rate} name={item.name} comment={item.comment}/>
+            <CardReview rate={item.rate} name={item.name} comment={item.comment} key={item}/>
           ))
         }
       </div>
