@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useFilters from "../context/FiltersContext";
 
 import { FilterSection } from "../components/products/FilterSection";
 import { Card } from "../components/products/Card";
@@ -19,31 +20,35 @@ export const Products = () => {
   const [TotalPage, setTotalPage] = useState(0);
   const [Loading, setLoading] = useState(true);
 
+  const {Filters} = useFilters()
+
   useEffect(() => {
     const fetchTotalPage = async () => {
-      const data = await getId();
+      const data = await getId(Filters);
       if (data) {
         const totalPages = Math.ceil(data.length / 10);
         setTotalPage(totalPages);
+        setPage(1)
       }
       setLoading(false);
     };
 
     fetchTotalPage();
-  }, []);
+  }, [Filters]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       if (Page === 1) {
-        const data = await getProducts(0, 8);
+        const data = await getProducts(Filters ,0, 8);
         setProducts(data);
       } else {
-        const data = await getProducts(Page * 10 - 10 - 1, Page * 10 - 3);
+        const data = await getProducts(Filters ,Page * 10 - 10 - 1, Page * 10 - 3);
         setProducts(data);
       }
     };
     fetchProducts();
-  }, [Page]);
+  }, [Filters, Page]);
+
 
   const NextPage = (Page) => {
     if (Page <= TotalPage) {

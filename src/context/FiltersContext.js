@@ -5,21 +5,16 @@ const FilterContext = createContext();
 export function FilterProvider({ children }) {
   const [Filters, setFilter] = useState({
     category: [],
-    lowPrice: "",
-    maxPrice: "",
+    lowPrice: 0,
+    maxPrice: 500,
     colors: [],
     sizes: [],
     style: {
       casual: [],
       party: [],
       gym: [],
-      formal: false,
     },
   });
-
-  useEffect(() => {
-    console.log(Filters);
-  }, [Filters]);
 
   const handleCategoryChange = (event, item) => {
     const isChecked = event.target.checked;
@@ -123,31 +118,31 @@ export function FilterProvider({ children }) {
     });
   };
 
-    const handleStyleFormalChange = (event) => {
-    const isChecked = event.target.checked;
-    setFilter((prevFilter) => {
-      return {
-        ...prevFilter,
-        style: {
-          ...prevFilter.style,
-          formal: isChecked,
-        },
-      };
-    });
-  };
+  //   const handleStyleFormalChange = (event) => {
+  //   const isChecked = event.target.checked;
+  //   setFilter((prevFilter) => {
+  //     return {
+  //       ...prevFilter,
+  //       style: {
+  //         ...prevFilter.style,
+  //         formal: isChecked,
+  //       },
+  //     };
+  //   });
+  // };
 
   return (
     <FilterContext.Provider
       value={{
         Filters: Filters,
+        setFilter : setFilter,
         handleCategoryChange: handleCategoryChange,
         handlePriceChange:  handlePriceChange,
         handleColorChange: handleColorChange,
         handleSizeChange: handleSizeChange,
         handleStyleCasualChange: handleStyleCasualChange,
         handleStylePartyChange: handleStylePartyChange,
-        handleStyleGymChange: handleStyleGymChange,
-        handleStyleFormalChange: handleStyleFormalChange
+        handleStyleGymChange: handleStyleGymChange
       }}
     >
       {children}
@@ -157,7 +152,7 @@ export function FilterProvider({ children }) {
 
 function useFilters(){
     const Filters = useContext(FilterContext)
-    // if(Filters === undefined) throw new Error('context was outside provider')
+     if(Filters === undefined) throw new Error('context was outside provider')
     
     return Filters
 }

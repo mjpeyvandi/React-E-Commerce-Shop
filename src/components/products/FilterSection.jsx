@@ -22,6 +22,7 @@ export const FilterSection = () => {
 
   const {
     Filters,
+    setFilter,
     handleCategoryChange,
     handlePriceChange,
     handleColorChange,
@@ -29,24 +30,10 @@ export const FilterSection = () => {
     handleStyleCasualChange,
     handleStylePartyChange,
     handleStyleGymChange,
-    handleStyleFormalChange
    } = useFilters();
 
-  // const [Filters, setFilter] = useState({
-  //   category: [],
-  //   lowPrice: "",
-  //   maxPrice: "",
-  //   colors: [],
-  //   sizes: [],
-  //   style: {
-  //     casual: [],
-  //     party: [],
-  //     gym: [],
-  //     formal: false,
-  //   },
-  // });
 
-  const category = ["T-Shirt", "Shirts", "Shorts", "Hoddie", "Jeans"];
+  const category = ["T-Shirts", "Shirts", "Shorts", "Hoddie", "Jeans"];
   const colors = [
     "green",
     "red",
@@ -73,10 +60,6 @@ export const FilterSection = () => {
   const casuals = ["t-shirt", "shirt", "maxi"];
   const partys = ["maxi", "midi", "mini"];
   const gyms = ["shirt", "short"];
-
-  // useEffect(() => {
-  //   console.log(Filters);
-  // }, [Filters]);
 
   const togglePriceRange = () => {
     setShowPriceRange(!showPriceRange);
@@ -119,120 +102,6 @@ export const FilterSection = () => {
     }
   };
 
-  // const handleCategoryChange = (event, item) => {
-  //   const isChecked = event.target.checked;
-
-  //   setFilter((prevFilter) => {
-  //     const updateCategory = isChecked
-  //       ? [...prevFilter.category, item]
-  //       : prevFilter.category.filter((i) => i !== item);
-
-  //     return {
-  //       ...prevFilter,
-  //       category: updateCategory,
-  //     };
-  //   });
-  // };
-
-  // const handlePriceChange = (minPrice, maxPrice) => {
-  //   setFilter((prevFilter) => ({
-  //     ...prevFilter,
-  //     lowPrice: minPrice,
-  //     maxPrice: maxPrice,
-  //   }));
-  // };
-
-  // const handleColorChange = (color) => {
-  //   const isColor = Filters.colors.includes(color);
-  //   setFilter((prevFilter) => {
-  //     const updateColor = !isColor
-  //       ? [...prevFilter.colors, color]
-  //       : prevFilter.colors.filter((i) => i !== color);
-
-  //     return {
-  //       ...prevFilter,
-  //       colors: updateColor,
-  //     };
-  //   });
-  // };
-
-  // const handleSizeChange = (size) => {
-  //   const isSize = Filters.sizes.includes(size);
-  //   setFilter((prevFilter) => {
-  //     const updateSize = !isSize
-  //       ? [...prevFilter.sizes, size]
-  //       : prevFilter.sizes.filter((i) => i !== size);
-
-  //     return {
-  //       ...prevFilter,
-  //       sizes: updateSize,
-  //     };
-  //   });
-  // };
-
-  // const handleStyleCasualChange = (event, item) => {
-  //   const isChecked = event.target.checked;
-  //   setFilter((prevFilter) => {
-  //     const updateStyleCasual = isChecked
-  //       ? [...prevFilter.style.casual, item]
-  //       : prevFilter.style.casual.filter((i) => i !== item);
-
-  //     return {
-  //       ...prevFilter,
-  //       style: {
-  //         ...prevFilter.style,
-  //         casual: updateStyleCasual,
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const handleStylePartyChange = (event, item) => {
-  //   const isChecked = event.target.checked;
-  //   setFilter((prevFilter) => {
-  //     const updateStyleParty = isChecked
-  //       ? [...prevFilter.style.party, item]
-  //       : prevFilter.style.party.filter((i) => i !== item);
-
-  //     return {
-  //       ...prevFilter,
-  //       style: {
-  //         ...prevFilter.style,
-  //         party: updateStyleParty,
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const handleStyleGymChange = (event, item) => {
-  //   const isChecked = event.target.checked;
-  //   setFilter((prevFilter) => {
-  //     const updateStyleGym = isChecked
-  //       ? [...prevFilter.style.gym, item]
-  //       : prevFilter.style.gym.filter((i) => i !== item);
-
-  //     return {
-  //       ...prevFilter,
-  //       style: {
-  //         ...prevFilter.style,
-  //         gym: updateStyleGym,
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const handleStyleFormalChange = (event) => {
-  //   const isChecked = event.target.checked;
-  //   setFilter((prevFilter) => {
-  //     return {
-  //       ...prevFilter,
-  //       style: {
-  //         ...prevFilter.style,
-  //         formal: isChecked,
-  //       },
-  //     };
-  //   });
-  // };
 
   return (
     <div
@@ -349,7 +218,7 @@ export const FilterSection = () => {
               <ul className="w-full flex flex-col justify-start items-start gap-2">
                 {casuals.map((item) => {
                   return (
-                    <label className="font-satoshi-l flex gap-3">
+                    <label className="font-satoshi-l flex gap-3" key={item}>
                       <input
                         type="checkbox"
                         className="accent-gray-300"
@@ -377,7 +246,7 @@ export const FilterSection = () => {
               <ul className="w-full flex flex-col justify-start items-start gap-2">
                 {partys.map((item) => {
                   return (
-                    <label className="font-satoshi-l flex gap-3">
+                    <label className="font-satoshi-l flex gap-3" key={item}>
                       <input
                         type="checkbox"
                         className="accent-gray-300"
@@ -405,7 +274,7 @@ export const FilterSection = () => {
               <ul className="w-full flex flex-col justify-start items-start gap-2">
                 {gyms.map((item) => {
                   return (
-                    <label className="font-satoshi-l flex gap-3">
+                    <label className="font-satoshi-l flex gap-3" key={item}>
                       <input
                         type="checkbox"
                         className="accent-gray-300"
@@ -418,7 +287,7 @@ export const FilterSection = () => {
                 })}
               </ul>
             )}
-            <label className="font-satoshi-l text-gray-500 cursor-pointer hover:text-slate-900 flex gap-3">
+            {/* <label className="font-satoshi-l text-gray-500 cursor-pointer hover:text-slate-900 flex gap-3">
               <input
                 type="checkbox"
                 className="accent-gray-300"
@@ -426,7 +295,7 @@ export const FilterSection = () => {
                 onChange={(event) => handleStyleFormalChange(event)}
               />{" "}
               Formal
-            </label>
+            </label> */}
           </ul>
         )}
       </div>
@@ -438,6 +307,7 @@ export const FilterSection = () => {
         bg={"bg-black"}
         textColor={"text-white"}
         font={"satoshi text-sm"}
+        clickHandler={()=> setFilter({...Filters})}
       >
         Apply Filter
       </Button>
