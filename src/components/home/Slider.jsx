@@ -37,13 +37,8 @@ export const Slider = () => {
       <div className="h-5/6 w-full flex flex-row justify-start items-center gap-5 overflow-hidden">
         {
           reviews.slice(currentIndex, currentIndex + 3)
-<<<<<<< HEAD
-          .map((item, id)=>(
-            <CardReview rate={item.rate} name={item.name} comment={item.comment} key={id}/>
-=======
           .map((item)=>(
             <CardReview rate={item.rate} name={item.name} comment={item.comment} key={item}/>
->>>>>>> products/page
           ))
         }
       </div>
