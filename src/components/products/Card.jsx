@@ -3,7 +3,8 @@ import { Rating } from "../../components/home/Rating";
 
 export const Card = ({ name, img, rate, price }) => {
   return (
-    <div className="h-[22rem] bg-white flex flex-col justify-start items-start gap-2">
+    <div className="h-[22rem] bg-white flex flex-col justify-start items-start gap-2 rounded-2xl cursor-pointer
+     transition-all">
       <div className="w-full h-4/5 bg-gray-200 rounded-2xl overflow-hidden">
         <img
           src={img}
