@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useFilters from "../context/FiltersContext";
 
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
 import { FilterSection } from "../components/products/FilterSection";
 import { Card } from "../components/products/Card";
 import { ButtonPage } from "../components/products/ButtonPage";
@@ -20,7 +22,86 @@ export const Products = () => {
   const [TotalPage, setTotalPage] = useState(0);
   const [Loading, setLoading] = useState(true);
 
-  const {Filters} = useFilters()
+  const { Filters, setFilter } = useFilters();
+
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const updateUrl = () => {
+      const params = new URLSearchParams();
+
+      if (Filters.category.length > 0) {
+        params.set("category", Filters.category.join(","));
+      }
+
+      if (Filters.style.casual.length > 0) {
+        params.set("casual", Filters.style.casual.join(","));
+      }
+
+      if (Filters.style.party.length > 0) {
+        params.set("party", Filters.style.party.join(","));
+      }
+
+      if (Filters.style.gym.length > 0) {
+        params.set("gym", Filters.style.gym.join(","));
+      }
+
+      const currentParams = searchParams.toString();
+      const newParams = params.toString();
+
+      if (currentParams !== newParams) {
+        navigate({
+          pathname: "/products",
+          search: newParams,
+        });
+      }
+    };
+
+    updateUrl();
+  }, [Filters, navigate, searchParams]);
+
+  useEffect(() => {
+    const params = Object.fromEntries([...searchParams]);
+
+    if (params.category) {
+      const categoryList = params.category.split(",");
+      setFilter((preFilters) => ({
+        ...preFilters,
+        category: categoryList,
+      }));
+    }
+    if (params.casual) {
+      const allCasual = params.casual.split(",");
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        style: {
+          ...prevFilter.style,
+          casual: allCasual,
+        },
+      }));
+    }
+    if (params.party) {
+      const allPartys = params.party.split(",");
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        style: {
+          ...prevFilter.style,
+          party: allPartys,
+        },
+      }));
+    }
+    if (params.gym) {
+      const allGyms = params.gym.split(",");
+      setFilter((prevFilter) => ({
+        ...prevFilter,
+        style: {
+          ...prevFilter.style,
+          gym: allGyms,
+        },
+      }));
+    }
+  }, [searchParams, setFilter]);
 
   useEffect(() => {
     const fetchTotalPage = async () => {
@@ -28,7 +109,7 @@ export const Products = () => {
       if (data) {
         const totalPages = Math.ceil(data.length / 10);
         setTotalPage(totalPages);
-        setPage(1)
+        setPage(1);
       }
       setLoading(false);
     };
@@ -39,16 +120,19 @@ export const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (Page === 1) {
-        const data = await getProducts(Filters ,0, 8);
+        const data = await getProducts(Filters, 0, 8);
         setProducts(data);
       } else {
-        const data = await getProducts(Filters ,Page * 10 - 10 - 1, Page * 10 - 3);
+        const data = await getProducts(
+          Filters,
+          Page * 10 - 10 - 1,
+          Page * 10 - 3
+        );
         setProducts(data);
       }
     };
     fetchProducts();
   }, [Filters, Page]);
-
 
   const NextPage = (Page) => {
     if (Page <= TotalPage) {
@@ -145,13 +229,15 @@ export const Products = () => {
                 <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
                   <div className="w-full h-full grid grid-cols-3 gap-4">
                     {Products.map((item) => (
-                      <Card
-                        name={item.product_name}
-                        img={item.image}
-                        price={item.price}
-                        rate={item.rate}
-                        key={item.id}
-                      />
+                      <Link to={"/"}>
+                        <Card
+                          name={item.product_name}
+                          img={item.image}
+                          price={item.price}
+                          rate={item.rate}
+                          key={item.id}
+                        />
+                      </Link>
                     ))}
                   </div>
                 </div>
