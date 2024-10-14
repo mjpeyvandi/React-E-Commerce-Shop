@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Star } from "./Star";
 
-export const Rating = ({ rate_Product, showNumber }) => {
+export const Rating = ({ rate_Product, showNumber, sizeStar }) => {
   // eslint-disable-next-line no-unused-vars
   const [rate, setRating] = useState(rate_Product);
   const starsFilled = Math.floor(rate);
@@ -13,7 +13,7 @@ export const Rating = ({ rate_Product, showNumber }) => {
         {Array.from({ length: 5 }, (_, i) => {
           let fill = i < starsFilled;
           let halfStar = !fill && hasHalfStar && i === starsFilled;
-          return <Star fill={rate >= i + 1} key={i} halfStar={halfStar} />;
+          return <Star fill={rate >= i + 1} key={i} halfStar={halfStar} size={sizeStar} />;
         })}
         {showNumber ? (
           <span className="font-satoshi-l">

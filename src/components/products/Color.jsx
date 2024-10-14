@@ -6,7 +6,7 @@ export default function Color({ value, onClick, checked }) {
   if (value === "white" || value === "black") {
     bgColor = `bg-${value}`;
     shadow = `shadow-${value}-800`;
-    borderColor = `border-${value}`;
+    borderColor = `border-gray-500`;
   } else if (value === "red") {
     bgColor = "bg-red-500";
     shadow = `shadow-${value}-800`;
@@ -43,7 +43,7 @@ export default function Color({ value, onClick, checked }) {
 
   return (
     <div
-      className={`size-9 rounded-full ${bgColor} border-[0.2px] ${checked.includes(value) ? `border-gray-950 border-[2.5px]` : borderColor} 
+      className={`size-9 rounded-full ${bgColor} border-[0.2px] ${checked?.includes(value) ? `border-gray-950 border-[2.5px]` : borderColor} 
        cursor-pointer hover:transition-all hover:${shadow} hover:shadow-xl`}
        onClick={onClick}
     ></div>

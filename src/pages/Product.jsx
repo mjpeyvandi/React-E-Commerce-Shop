@@ -9,11 +9,11 @@ export const Product = () => {
   const location = useLocation();
   const { id } = location.state;
   return (
-    <div className="w-full h-auto bg-slate-500">
+    <div className="w-full h-auto">
       <div className="container mx-auto w-full h-[auto] ">
-        <div className="w-full h-[33rem] bg-amber-200 flex flex-col justify-between items-center">
+        <div className="w-full h-[35rem] flex flex-col justify-between items-center border-t-[0.2px] border-t-gray-300">
           {/* Route section */}
-          <div className="w-full h-[5%] flex flex-row justify-start items-center font-satoshi-l gap-2 py-6 bg-green-200">
+          <div className="w-full h-[5%] flex flex-row justify-start items-center font-satoshi-l gap-2 py-6">
             <p className="text-gray-500">{`Home`}</p>{" "}
             <MdKeyboardArrowRight className="size-5 opacity-45" />{" "}
             <p className="text-gray-500">Products</p>

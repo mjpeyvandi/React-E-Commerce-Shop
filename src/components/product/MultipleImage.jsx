@@ -12,7 +12,7 @@ export const MultipleImage = () => {
   const [mainPic, setMainPic] = useState(0)
   return (
     <div className="w-full h-full flex flex-row justify-between items-center gap-2">
-      <div className="w-[27%] h-full flex flex-col justify-between items-start gap-2 bg-red-300">
+      <div className="w-[27%] h-full flex flex-col justify-between items-start gap-2">
         {images.map((image, key) => (
           <img
             src={image}
