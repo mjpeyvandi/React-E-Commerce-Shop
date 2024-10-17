@@ -1,30 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import useProduct from "../../context/ProductContext";
 
 import { Rating } from "../home/Rating";
 import Color from "../products/Color";
 import { Size } from "../products/Size";
 
 export const Order = () => {
+  const {Product} = useProduct();
+  const [Price_with_Discount, setPriceWithDiscount] = useState(0);
+
+  useEffect(() => {
+    const CalculateDiscount = () => {
+      if (Product && Product.discount !== 0) {
+        const newPrice = Math.abs((Product.discount / 100 - 1) * Product.price);
+        setPriceWithDiscount(newPrice);
+      }else{
+        setPriceWithDiscount(0)
+      }
+    };
+
+    CalculateDiscount();
+  }, [Product]);
+
   return (
     <div className="w-full h-full flex flex-col justify-between items-center">
       {/* details */}
       <div className="w-full h-[45%]  flex flex-col justify-between items-start gap-3 pb-3">
-        <h1 className="font-titr text-4xl uppercase">
-          one life graphic t-shirt
-        </h1>
-        <Rating rate_Product={4} showNumber={true} sizeStar={7} />
+        <h1 className="font-titr text-4xl uppercase">{Product.product_name}</h1>
+        <Rating rate_Product={Product.rate} showNumber={true} sizeStar={7} />
         <div className="w-full h-[36px] flex flex-row justify-start items-center gap-2">
-          <span className="font-satoshi-b text-3xl">$260</span>
-          <span className="font-satoshi-b text-gray-400 text-3xl line-through">
-            $300
+          <span className="font-satoshi-b text-3xl">
+            {Price_with_Discount !== 0 ? `$${Price_with_Discount}` : `$${Product.price}`}
           </span>
-          <span className="w-auto h-full p-2 flex flex-row justify-center items-center px-3 font-satoshi text-sm bg-red-100 text-red-500 rounded-3xl">
-            -40%
-          </span>
+          {Price_with_Discount !== 0 ? (
+            <span className="font-satoshi-b text-gray-400 text-3xl line-through">
+              ${Product.price}
+            </span>
+          ) : null}
+
+          {Product.discount !== 0 ? (
+            <span className="w-auto h-full p-2 flex flex-row justify-center items-center px-3 font-satoshi text-sm bg-red-100 text-red-500 rounded-3xl">
+              -{Product.discount}%
+            </span>
+          ) : null}
+
         </div>
-        <p className="w-4/5 font-satoshi text-black opacity-60">
-          This graphic t-shirt which is perfect for any occasion. Crafted from a
-          soft and breathable fabric, it offers superior comfort and style.
+        <p className="w-[90%] font-satoshi text-black opacity-60">
+          {Product.description}
         </p>
       </div>
       {/* color */}
