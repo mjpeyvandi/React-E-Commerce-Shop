@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Color({ value, onClick, checked }) {
+export default function Color({ value, onClick, checked, disabled }) {
   let bgColor, borderColor, shadow;
 
   if (value === "white" || value === "black") {
@@ -44,7 +44,7 @@ export default function Color({ value, onClick, checked }) {
   return (
     <div
       className={`size-9 rounded-full ${bgColor} border-[0.2px] ${checked?.includes(value) ? `border-gray-950 border-[2.5px]` : borderColor} 
-       cursor-pointer hover:transition-all hover:${shadow} hover:shadow-xl`}
+       cursor-pointer hover:transition-all hover:${shadow} hover:shadow-xl ${!disabled ? `opacity-20 pointer-events-none` : ``}`}
        onClick={onClick}
     ></div>
   );
