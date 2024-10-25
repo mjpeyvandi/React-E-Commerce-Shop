@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 
 import { ProductInfo } from "../components/product/ProductInfo";
 import { TypeInfo } from "../components/product/TypeInfo";
+import { SimilarProducts } from "../components/product/SimilarProducts";
 
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { ProductContextProvider } from "../context/ProductContext";
@@ -33,8 +34,14 @@ export const Product = () => {
         </div>
         {/* details section */}
         <div className="w-full h-auto">
-          <TypeInfo/>
+          <TypeInfo />
         </div>
+        {/* suggest product */}
+        <ProductContextProvider id={id}>
+          <div className="w-full h-auto">
+            <SimilarProducts />
+          </div>
+        </ProductContextProvider>
       </div>
     </div>
   );

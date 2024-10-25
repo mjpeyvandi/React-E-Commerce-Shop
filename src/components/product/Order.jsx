@@ -62,11 +62,6 @@ export const Order = () => {
     }
   }, [Product]);
 
-  console.log(Product);
-  console.log(ColortoSizeMap);
-  console.log(SizetoColorMap);
-  console.log(selectColor);
-
   useEffect(() => {
     if (
       selectColor &&
@@ -77,8 +72,6 @@ export const Order = () => {
     }
   }, [selectColor, ColortoSizeMap]);
 
-  console.log(availableSize);
-
   useEffect(() => {
     if (
       selectSize &&
@@ -88,8 +81,6 @@ export const Order = () => {
       setAvailableColor(SizetoColorMap[selectSize] || []);
     }
   }, [selectSize, SizetoColorMap]);
-
-  console.log(availableSize);
 
   return (
     <div className="w-full h-full flex flex-col justify-between items-center">

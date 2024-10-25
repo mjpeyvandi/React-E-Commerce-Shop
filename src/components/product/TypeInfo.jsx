@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Reviews } from "./Reviews";
 
 export const TypeInfo = () => {
-    const [selectedTypeInfo, setSelectedType] = useState("")
+    const [selectedTypeInfo, setSelectedType] = useState("reviews")
   return (
     <div className="w-full h-auto flex flex-col justify-start items-center pt-14">
       <div className="w-full h-16 flex flex-row justify-between items-center border-b-[0.2px] border-gray-300">
