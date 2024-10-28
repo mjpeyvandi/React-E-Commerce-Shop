@@ -1,15 +1,16 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { ProductInfo } from "../components/product/ProductInfo";
 import { TypeInfo } from "../components/product/TypeInfo";
 import { SimilarProducts } from "../components/product/SimilarProducts";
 
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
+
 import { ProductContextProvider } from "../context/ProductContext";
 
 export const Product = () => {
-  const location = useLocation();
-  const { id } = location.state;
+
+  const {id} = useParams()
 
   return (
     <div className="w-full h-auto">

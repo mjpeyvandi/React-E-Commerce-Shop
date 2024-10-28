@@ -229,7 +229,7 @@ export const Products = () => {
                 <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
                   <div className="w-full h-full grid grid-cols-3 gap-4">
                     {Products.map((item) => (
-                      <Link to={`/products/product/${item.product_name}`} state={{id : item.id}}>
+                      <Link to={`/products/product/${item.product_name}/${item.id}`}>
                         <Card
                           name={item.product_name}
                           img={item.image}
