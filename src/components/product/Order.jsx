@@ -54,6 +54,7 @@ export const Order = () => {
         setSizetoColorMap(SizesMap)
         setColors(Object.keys(ColorsMap));
         setSizes(Object.keys(SizesMap));
+        setSelectColor(Colors[0])
       };
       getColors_and_Size();
     } else {
@@ -69,6 +70,7 @@ export const Order = () => {
       Object.keys(ColortoSizeMap).length > 0
     ) {
       setAvailableSize(ColortoSizeMap[selectColor] || []);
+      setSelectSize("")
     }
   }, [selectColor, ColortoSizeMap]);
 
@@ -122,7 +124,7 @@ export const Order = () => {
                 value={`${color}`}
                 onClick={() => setSelectColor(color)}
                 checked={selectColor === color ? color : null}
-                disabled={selectSize ? availableColor.includes(color) : true}
+                // disabled={selectSize ? availableColor.includes(color) : true}
               />
             );
           })}
@@ -137,6 +139,7 @@ export const Order = () => {
               <Size
                 value={size}
                 disabled={selectColor ? availableSize.includes(size) : true}
+                checked={selectSize === size ? true : false}
                 onClick={() => setSelectSize(size)}
               />
             );
