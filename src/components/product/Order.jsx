@@ -6,6 +6,12 @@ import { Rating } from "../home/Rating";
 import Color from "../products/Color";
 import { Size } from "../products/Size";
 
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { addToCart } from "../../states/cartSlice";
+import { useDispatch } from "react-redux";
+
 export const Order = () => {
   const { Product } = useProduct();
   const [Price_with_Discount, setPriceWithDiscount] = useState(0);
@@ -17,6 +23,9 @@ export const Order = () => {
   const [SizetoColorMap, setSizetoColorMap] = useState({});
   const [availableColor, setAvailableColor] = useState([]);
   const [availableSize, setAvailableSize] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
+  const disPatch = useDispatch();
 
   useEffect(() => {
     const CalculateDiscount = () => {
@@ -45,16 +54,16 @@ export const Order = () => {
             ColorsMap[color] = [];
           }
           ColorsMap[color].push(size);
-          if(!SizesMap[size]){
-            SizesMap[size] = []
+          if (!SizesMap[size]) {
+            SizesMap[size] = [];
           }
-          SizesMap[size].push(color)
+          SizesMap[size].push(color);
         });
         setColortoSizeMap(ColorsMap);
-        setSizetoColorMap(SizesMap)
+        setSizetoColorMap(SizesMap);
         setColors(Object.keys(ColorsMap));
         setSizes(Object.keys(SizesMap));
-        setSelectColor(Colors[0])
+        setSelectColor(Colors[0]);
       };
       getColors_and_Size();
     } else {
@@ -70,7 +79,7 @@ export const Order = () => {
       Object.keys(ColortoSizeMap).length > 0
     ) {
       setAvailableSize(ColortoSizeMap[selectColor] || []);
-      setSelectSize("")
+      setSelectSize("");
     }
   }, [selectColor, ColortoSizeMap]);
 
@@ -83,6 +92,31 @@ export const Order = () => {
       setAvailableColor(SizetoColorMap[selectSize] || []);
     }
   }, [selectSize, SizetoColorMap]);
+
+  const notify = () =>
+    selectSize
+      ? toast.success("Product added to the cart", {
+          position: "top-left",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        })
+      : toast.error("Please select a size", {
+          position: "top-left",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
 
   return (
     <div className="w-full h-full flex flex-col justify-between items-center">
@@ -149,17 +183,45 @@ export const Order = () => {
       {/* add to cart */}
       <div className="w-full h-[15%] flex flex-row justify-between items-end gap-4">
         <div className="w-1/4 h-12 rounded-3xl bg-gray-200 flex flex-row justify-between items-center align-baseline px-5">
-          <button className="w-auto h-full text-center text-4xl font-satoshi">
+          <button
+            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+            onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : null)}
+          >
             -
           </button>
-          <span className="w-auto h-auto text-2xl font-satoshi">1</span>
-          <button className="w-auto h-full text-center text-4xl font-satoshi">
+          <span className="w-auto h-auto text-2xl font-satoshi">
+            {quantity}
+          </span>
+          <button
+            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+            onClick={() => setQuantity(quantity + 1)}
+          >
             +
           </button>
         </div>
-        <button className="w-3/4 h-12 rounded-3xl bg-black font-satoshi text-center text-white">
+        <button
+          className="w-3/4 h-12 rounded-3xl bg-black font-satoshi text-center text-white"
+          onClick={() => {
+            notify()
+            if (selectSize) {
+              disPatch(
+                addToCart({
+                  productID: Product.id,
+                  image: Product.image,
+                  name: Product.product_name,
+                  size: selectSize,
+                  color: selectColor,
+                  price: Price_with_Discount > 0 ? Price_with_Discount : Product.price,
+                  quantity: quantity,
+                  realPrice : Product.price
+                })
+              );
+            }
+          }}
+        >
           Add to Cart
         </button>
+        <ToastContainer />
       </div>
     </div>
   );
