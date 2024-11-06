@@ -25,8 +25,7 @@ export const SimilarProducts = () => {
       <div className="w-full h-auto grid grid-cols-4 gap-2">
         {SuggestedProducts.map((product) => (
           <Link
-            to={`/products/product/${product.product_name}`}
-            state={{ id: product.id }}
+            to={`/products/product/${product.product_name}/${product.id}`}
           >
             <Card
               img={product.image}

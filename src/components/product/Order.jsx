@@ -70,7 +70,7 @@ export const Order = () => {
       console.log("product not find");
       return;
     }
-  }, [Product]);
+  }, [Product, Colors]);
 
   useEffect(() => {
     if (
