@@ -1,6 +1,7 @@
 import React from "react";
 
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
+import { Items } from "../components/cart/Items";
 
 export const Cart = () => {
   return (
@@ -17,10 +18,10 @@ export const Cart = () => {
         </div>
         {/* cart section */}
         <div className="w-full h-auto grid grid-cols-5 gap-3 items-start">
-          <div className="w-full h-min col-span-3 bg-slate-400 border-[0.2px] border-gray-300 rounded-2xl p-6">
-            <div className="h-36 bg-slate-300"></div>
+          <div className="w-full h-min col-span-3 border-[0.2px] border-gray-300 rounded-2xl p-6">
+            <Items/>
           </div>
-          <div className="w-full min-h-96 relative col-span-2 bg-orange-300 border-[0.2px] border-gray-300 rounded-2xl"></div>
+          <div className="w-full h-[25rem] relative col-span-2 bg-orange-300 border-[0.2px] border-gray-300 rounded-2xl p-6"></div>
         </div>
       </div>
     </div>
