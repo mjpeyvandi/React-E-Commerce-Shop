@@ -2,6 +2,7 @@ import React from "react";
 
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { Items } from "../components/cart/Items";
+import { OrderSummary } from "../components/cart/OrderSummary";
 
 export const Cart = () => {
   return (
@@ -17,11 +18,13 @@ export const Cart = () => {
           <h2 className="font-titr text-4xl h-1/6">Your cart</h2>
         </div>
         {/* cart section */}
-        <div className="w-full h-auto grid grid-cols-5 gap-3 items-start">
+        <div className="w-full h-auto grid grid-cols-5 gap-3 ">
           <div className="w-full h-min col-span-3 border-[0.2px] border-gray-300 rounded-2xl p-6">
             <Items/>
           </div>
-          <div className="w-full h-[25rem] relative col-span-2 bg-orange-300 border-[0.2px] border-gray-300 rounded-2xl p-6"></div>
+          <div className="w-full h-[27rem] col-span-2 border-[0.2px] border-gray-300 rounded-2xl py-6 px-5">
+            <OrderSummary/>
+          </div>
         </div>
       </div>
     </div>

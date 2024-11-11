@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { addToCart } from "../../states/cartSlice";
 import { useDispatch } from "react-redux";
+import { Button } from "../../ui/Button";
 
 export const Order = () => {
   const { Product } = useProduct();
@@ -199,7 +200,7 @@ export const Order = () => {
             +
           </button>
         </div>
-        <button
+        {/* <button
           className="w-3/4 h-12 rounded-3xl bg-black font-satoshi text-center text-white"
           onClick={() => {
             notify()
@@ -220,7 +221,33 @@ export const Order = () => {
           }}
         >
           Add to Cart
-        </button>
+        </button> */}
+        <Button
+          w={"w-3/4"}
+          h={"h-12"}
+          onClick={() => {
+            notify();
+            if (selectSize) {
+              disPatch(
+                addToCart({
+                  productID: Product.id,
+                  image: Product.image,
+                  name: Product.product_name,
+                  size: selectSize,
+                  color: selectColor,
+                  price:
+                    Price_with_Discount > 0
+                      ? Price_with_Discount
+                      : Product.price,
+                  quantity: quantity,
+                  realPrice: Product.price,
+                })
+              );
+            }
+          }}
+        >
+          Add to Cart
+        </Button>
         <ToastContainer />
       </div>
     </div>
