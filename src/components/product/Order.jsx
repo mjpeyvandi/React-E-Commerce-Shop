@@ -22,6 +22,7 @@ export const Order = () => {
   const [selectSize, setSelectSize] = useState("");
   const [ColortoSizeMap, setColortoSizeMap] = useState({});
   const [SizetoColorMap, setSizetoColorMap] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [availableColor, setAvailableColor] = useState([]);
   const [availableSize, setAvailableSize] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -71,7 +72,7 @@ export const Order = () => {
       console.log("product not find");
       return;
     }
-  }, [Product, Colors]);
+  }, [Product]);
 
   useEffect(() => {
     if (
@@ -200,28 +201,6 @@ export const Order = () => {
             +
           </button>
         </div>
-        {/* <button
-          className="w-3/4 h-12 rounded-3xl bg-black font-satoshi text-center text-white"
-          onClick={() => {
-            notify()
-            if (selectSize) {
-              disPatch(
-                addToCart({
-                  productID: Product.id,
-                  image: Product.image,
-                  name: Product.product_name,
-                  size: selectSize,
-                  color: selectColor,
-                  price: Price_with_Discount > 0 ? Price_with_Discount : Product.price,
-                  quantity: quantity,
-                  realPrice : Product.price
-                })
-              );
-            }
-          }}
-        >
-          Add to Cart
-        </button> */}
         <Button
           w={"w-3/4"}
           h={"h-12"}
