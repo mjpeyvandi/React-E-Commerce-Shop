@@ -1,45 +1,47 @@
 import React from "react";
 
-import trash from "../../assets/images/trash.png"
+import trash from "../../assets/images/trash.png";
 
-export const Items = () => {
+export const Items = ({ image, name, realPrice, quantity, size, color }) => {
   return (
     <div className="h-36 w-full flex flex-row justify-between items-center">
-        {/* item details */}
+      {/* item details */}
       <div className="w-auto h-full flex flex-row justify-start items-center gap-4">
         <img
-          src="https://gazdnqgxpoprrmgpcmgb.supabase.co/storage/v1/object/sign/image_products/shirts/shirt-2.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZV9wcm9kdWN0cy9zaGlydHMvc2hpcnQtMi5wbmciLCJpYXQiOjE3MTIzMjAzNDksImV4cCI6MTgwNjkyODM0OX0.-Wj_qyUU8ov7OKu5RsqpEai60iyPOCoIVbBFg0lZ3vA&t=2024-04-05T12%3A32%3A28.711Z"
+          src={image}
           alt="defe"
-          className="h-full w-36 object-cover rounded-2xl"
+          className="h-full w-36 object-cover rounded-2xl bg-gray-200"
         />
         <div className="h-full w-auto flex flex-col justify-between items-start">
           <div className="h-4/5 w-auto flex flex-col justify-start items-start gap-1">
-            <h2 className="font-satoshi-b text-xl">Gradient Graphic T-shirt</h2>
+            <h2 className="font-satoshi-b text-xl">{name}</h2>
             <p className="font-satoshi text-sm ">
-              Size: <span className="font-satoshi text-sm text-gray-400 font-light">Large</span>
+              Size:{" "}
+              <span className="font-satoshi text-sm text-gray-400 font-light">
+                {size}
+              </span>
             </p>
             <p className="font-satoshi text-sm ">
-              Color: <span className="font-satoshi text-sm text-gray-400 font-light">White</span>
+              Color:{" "}
+              <span className="font-satoshi text-sm text-gray-400 font-light">
+                {color}
+              </span>
             </p>
           </div>
-          <h2 className="font-satoshi-b text-2xl">$145</h2>
+          <h2 className="font-satoshi-b text-2xl">${quantity * realPrice}</h2>
         </div>
       </div>
-    {/* manage item */}
+      {/* manage item */}
       <div className="w-auto h-full flex flex-col justify-between items-end">
         <img src={trash} alt="dd" />
         <div className="w-36 h-11 rounded-3xl bg-gray-200 flex flex-row justify-between items-center align-baseline px-5">
-          <button
-            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
-          >
+          <button className="w-auto h-full text-center text-4xl font-satoshi outline-none">
             -
           </button>
           <span className="w-auto h-auto text-2xl font-satoshi">
-            1
+            {quantity}
           </span>
-          <button
-            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
-          >
+          <button className="w-auto h-full text-center text-4xl font-satoshi outline-none">
             +
           </button>
         </div>
