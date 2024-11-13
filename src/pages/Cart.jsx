@@ -30,7 +30,6 @@ export const Cart = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems, cart_items]);
 
-console.log(discount)
   return (
     <div className="w-full h-auto">
       <div className="container mx-auto w-full h-auto border-t-[0.2px] border-t-gray-300">
@@ -48,12 +47,14 @@ console.log(discount)
           <div className="w-full h-min col-span-3 flex flex-col justify-start items-center gap-12 border-[0.2px] border-gray-300 rounded-2xl p-6">
             {cartItems?.map((item) => (
               <Items
+                id={item.productID}
                 image={item.image}
                 name={item.name}
                 size={item.size}
                 color={item.color}
                 realPrice={item.realPrice}
                 quantity={item.quantity}
+                key={item.productID}
               />
             ))}
           </div>

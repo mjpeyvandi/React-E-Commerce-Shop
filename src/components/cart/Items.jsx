@@ -1,8 +1,19 @@
 import React from "react";
 
 import trash from "../../assets/images/trash.png";
+import { useDispatch } from "react-redux";
+import { Decrease, deleteItem, Increase } from "../../states/cartSlice";
 
-export const Items = ({ image, name, realPrice, quantity, size, color }) => {
+export const Items = ({
+  id,
+  image,
+  name,
+  realPrice,
+  quantity,
+  size,
+  color,
+}) => {
+  const dispatch = useDispatch();
   return (
     <div className="h-36 w-full flex flex-row justify-between items-center">
       {/* item details */}
@@ -33,15 +44,32 @@ export const Items = ({ image, name, realPrice, quantity, size, color }) => {
       </div>
       {/* manage item */}
       <div className="w-auto h-full flex flex-col justify-between items-end">
-        <img src={trash} alt="dd" />
+        <img
+          src={trash}
+          alt="dd"
+          className="cursor-pointer"
+          onClick={() =>
+            dispatch(deleteItem({ productID: id, size: size, color: color }))
+          }
+        />
         <div className="w-36 h-11 rounded-3xl bg-gray-200 flex flex-row justify-between items-center align-baseline px-5">
-          <button className="w-auto h-full text-center text-4xl font-satoshi outline-none">
+          <button
+            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+            onClick={() =>
+              dispatch(Decrease({ productID: id, size: size, color: color }))
+            }
+          >
             -
           </button>
           <span className="w-auto h-auto text-2xl font-satoshi">
             {quantity}
           </span>
-          <button className="w-auto h-full text-center text-4xl font-satoshi outline-none">
+          <button
+            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+            onClick={() =>
+              dispatch(Increase({ productID: id, size: size, color: color }))
+            }
+          >
             +
           </button>
         </div>

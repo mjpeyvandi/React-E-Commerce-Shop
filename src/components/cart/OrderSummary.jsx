@@ -17,7 +17,6 @@ export const OrderSummary = ({subtotal, discountPrice}) => {
     }
     calculatePercent()
   },[discountPrice, subtotal])
-  console.log(discountPercentage)
   return (
     <div className="w-full h-full flex flex-col justify-between items-start">
         <div className="w-full max-h-full flex flex-col justify-center items-start gap-5">
