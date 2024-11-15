@@ -10,6 +10,9 @@ export const Cart = () => {
   const [cartItems, setItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [discountPercentage, setPercentage] = useState(0)
+  const [total, setTotal] = useState(0)
+
   const cart_items = useSelector((state) => state.cart);
   useEffect(() => {
     const itemsHandler = () => {
@@ -29,6 +32,21 @@ export const Cart = () => {
     itemsHandler();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems, cart_items]);
+
+  
+  useEffect(()=>{
+    const calculatePercent = ()=>{
+      let percent = 0
+      if(subtotal && discount){
+        percent += Math.floor((discount / subtotal) * 100)
+        setPercentage(percent)
+        setTotal(subtotal - discount)
+      }else if(subtotal){
+        setTotal(subtotal)
+      }
+    }
+    calculatePercent()
+  },[discount, subtotal])
 
   return (
     <div className="w-full h-auto">
@@ -59,7 +77,7 @@ export const Cart = () => {
             ))}
           </div>
           <div className="w-full h-[27rem] lg:col-span-2 border-[0.2px] border-gray-300 rounded-2xl py-6 px-5">
-            <OrderSummary subtotal={subtotal} discountPrice={discount} />
+            <OrderSummary subtotal={subtotal} discountPrice={discount} percent={discountPercentage} total={total} />
           </div>
         </div>
       </div>
