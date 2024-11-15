@@ -40,11 +40,11 @@ export const Cart = () => {
         </div>
         {/* titr section */}
         <div className="w-full h-auto py-4">
-          <h2 className="font-titr text-4xl h-1/6">Your cart</h2>
+          <h2 className="font-titr text-3xl md:text-4xl h-1/6">Your cart</h2>
         </div>
         {/* cart section */}
-        <div className="w-full h-auto grid grid-cols-5 gap-3 ">
-          <div className="w-full h-min col-span-3 flex flex-col justify-start items-center gap-12 border-[0.2px] border-gray-300 rounded-2xl p-6">
+        <div className="w-full h-auto grid grid-cols-1 lg:grid-cols-5 gap-3 ">
+          <div className="w-full h-min lg:col-span-3 flex flex-col justify-start items-center gap-12 border-[0.2px] border-gray-300 rounded-2xl p-3 xs:p-6">
             {cartItems?.map((item) => (
               <Items
                 id={item.productID}
@@ -58,7 +58,7 @@ export const Cart = () => {
               />
             ))}
           </div>
-          <div className="w-full h-[27rem] col-span-2 border-[0.2px] border-gray-300 rounded-2xl py-6 px-5">
+          <div className="w-full h-[27rem] lg:col-span-2 border-[0.2px] border-gray-300 rounded-2xl py-6 px-5">
             <OrderSummary subtotal={subtotal} discountPrice={discount} />
           </div>
         </div>
