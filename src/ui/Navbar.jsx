@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { GoChevronDown } from "@react-icons/all-files/go/GoChevronDown";
 import { FiShoppingCart } from "@react-icons/all-files/fi/FiShoppingCart";
 import { FaRegUserCircle } from "@react-icons/all-files/fa/FaRegUserCircle";
+import { BsSearch } from "@react-icons/all-files/bs/BsSearch";
+import { FiMenu } from "@react-icons/all-files/fi/FiMenu";
 
 import { Search } from "./Search";
 import { ModalMenu } from "./ModalMenu";
@@ -12,10 +14,15 @@ export const Navbar = ({ setOp }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <div className="w-full h-20">
+      <div className="w-full h-14 md:h-20">
         <div className="w-full h-full flex flex-row justify-between items-center">
-          <span className="font-titr text-3xl cursor-pointer">SHOP.CO</span>
-          <ul className="h-full flex flex-row justify-between items-center align-baseline font-satoshi space-x-3">
+          <div className="w-auto h-full flex justify-start items-center gap-4">
+            <FiMenu className="lg:hidden size-6 cursor-pointer mt-1" />
+            <span className="h-full text-center flex items-center font-titr text-3xl cursor-pointer">
+              SHOP.CO
+            </span>
+          </div>
+          <ul className="h-full hidden lg:flex flex-row justify-between items-center align-baseline font-satoshi space-x-3">
             <li
               className="h-full inline-flex justify-between items-center cursor-pointer hover:font-bold"
               onMouseEnter={() => setShowModal(true) & setOp(true)}
@@ -35,7 +42,8 @@ export const Navbar = ({ setOp }) => {
             </li>
           </ul>
           <Search />
-          <div className="w-16 flex flex-row justify-between items-center">
+          <div className="w-auto flex flex-row justify-between items-center gap-4 md:gap-3">
+            <BsSearch className="md:hidden size-6 cursor-pointe" />
             <Link to={"/cart"}>
               <FiShoppingCart className="size-6 cursor-pointer" />
             </Link>

@@ -6,7 +6,7 @@ import { Footer } from './Footer'
 export const AppLayout = ({children}) => {
   const [Modal, setOp] = useState(false)
   return (
-    <div>
+    <div className='w-full h-auto'>
         <header className='container bg-white mx-auto'>
             <Navbar setOp={setOp}/>
         </header>
