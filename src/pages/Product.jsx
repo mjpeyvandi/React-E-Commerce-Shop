@@ -9,14 +9,13 @@ import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowR
 import { ProductContextProvider } from "../context/ProductContext";
 
 export const Product = () => {
-
-  const {id} = useParams()
+  const { id } = useParams();
 
   return (
     <div className="w-full h-auto">
       <div className="container mx-auto w-full h-[auto] ">
         {/* show product */}
-        <div className="w-full h-[35rem] flex flex-col justify-between items-center border-t-[0.2px] border-t-gray-300">
+        <div className="w-full h-[78rem] sm:h-[80rem] lg:h-[42rem] xl:h-[35rem] flex flex-col justify-between items-center border-t-[0.2px] border-t-gray-300">
           <ProductContextProvider id={id}>
             {/* Route section */}
             <div className="w-full h-[5%] flex flex-row justify-start items-center font-satoshi-l gap-2 py-6">

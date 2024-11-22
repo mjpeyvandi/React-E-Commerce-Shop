@@ -23,21 +23,21 @@ export const MultipleImage = () => {
   }, [Product]);
 
   return (
-    <div className="w-full h-full flex flex-row justify-between items-center gap-2">
-      <div className="w-[27%] h-full flex flex-col justify-between items-start gap-2">
+    <div className="w-full h-full flex flex-col-reverse justify-around  sm:flex-row sm:justify-between items-center gap-4">
+      <div className="w-full sm:w-[27%] h-1/4 sm:h-full flex flex-row sm:flex-col justify-between items-start gap-2">
         {images.map((image, key) => (
           <img
             src={image}
             alt="img"
             id={key}
-            className={`w-full h-1/3 cursor-pointer rounded-2xl object-cover object-center overflow-hidden bg-gray-200 ${
+            className={`w-full h-full sm:h-1/3 cursor-pointer rounded-2xl object-cover object-center overflow-hidden bg-gray-200 ${
               mainPic === key ? "border-[0.8px] border-gray-950" : ""
             }`}
             onClick={() => setMainPic(key)}
           />
         ))}
       </div>
-      <div className="w-[73%] h-full">
+      <div className="w-full h-3/4 sm:w-[73%] sm:h-full">
         <img
           src={images[mainPic]}
           alt="img"

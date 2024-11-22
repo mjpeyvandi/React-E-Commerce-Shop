@@ -21,8 +21,8 @@ export const SimilarProducts = () => {
   }, [Product]);
   return (
     <div className="w-full h-auto flex flex-col justify-between items-center gap-6 pt-14">
-      <h2 className="font-titr text-5xl h-1/6">You might also like</h2>
-      <div className="w-full h-auto grid grid-cols-4 gap-2">
+      <h2 className="font-titr text-2xl xs:text-3xl sm:text-5xl h-1/6">You might also like</h2>
+      <div className="w-full h-auto  flex xs:grid grid-cols-2 sm:grid-cols-4 gap-4 xs:gap-2 overflow-x-auto scrollbar-hidden">
         {SuggestedProducts.map((product) => (
           <Link
             to={`/products/product/${product.product_name}/${product.id}`}

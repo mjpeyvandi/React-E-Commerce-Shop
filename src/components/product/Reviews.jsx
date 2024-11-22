@@ -22,7 +22,7 @@ export const Reviews = () => {
   return (
     <div className="w-full h-auto flex flex-col justify-start items-center gap-5 pt-5">
       <div className="w-full h-12 flex flex-row justify-start items-center">
-        <p className="font-satoshi-b text-2xl">
+        <p className="font-satoshi-b text-xl sm:text-2xl">
           All Reviews{" "}
           <span className="font-satoshi-l text-lg text-black opacity-60">
             (451)
@@ -30,7 +30,7 @@ export const Reviews = () => {
         </p>
       </div>
 
-      <div className="w-full h-auto grid grid-cols-2 gap-3">
+      <div className="w-full h-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
         {Reviews?.map((review) => {
           const date = new Date(review.created);
           return (

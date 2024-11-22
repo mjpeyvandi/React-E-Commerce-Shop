@@ -31,8 +31,8 @@ export const Rating = ({ rate_Product, showNumber, sizeStar }) => {
           );
         })}
         {showNumber ? (
-          <span className="font-satoshi-l">
-            {rate}/<span className="font-satoshi-l opacity-70">5</span>
+          <span className="font-satoshi-l text-sm xs:text-base">
+            {rate}/<span className="font-satoshi-l opacity-70 text-sm xs:text-base">5</span>
           </span>
         ) : null}
       </div>
