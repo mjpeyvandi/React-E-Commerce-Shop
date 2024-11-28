@@ -12,7 +12,7 @@ export const Card = ({ name, img, rate, price }) => {
           className="w-full h-full object-cover object-center rounded-2xl"
         />
       </div>
-      <h2 className="font-satoshi-b  text-xs xs:text-lg sm:text-xl">{name}</h2>
+      <h2 className="font-satoshi-b text-nowrap text-xs xs:text-lg sm:text-xl">{name}</h2>
       <Rating rate_Product={rate} showNumber={true} />
       <h2 className="font-satoshi-b text-xl">${price}</h2>
     </div>

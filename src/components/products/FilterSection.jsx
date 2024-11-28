@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import filters from "../../assets/images/filters.png";
 import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
 import { IoIosArrowForward } from "@react-icons/all-files/io/IoIosArrowForward";
+import { IoClose } from "@react-icons/all-files/io5/IoClose";
 
 import PriceRange from "./PriceRange";
 import Color from "./Color";
@@ -10,7 +11,7 @@ import { Size } from "./Size";
 import { Button } from "../home/Button";
 import useFilters from "../../context/FiltersContext";
 
-export const FilterSection = () => {
+export const FilterSection = ({ close }) => {
   const [showPriceRange, setShowPriceRange] = useState(true);
   const [showColors, setShowColors] = useState(true);
   const [showSize, setShowSize] = useState(true);
@@ -30,8 +31,7 @@ export const FilterSection = () => {
     handleStyleCasualChange,
     handleStylePartyChange,
     handleStyleGymChange,
-   } = useFilters();
-
+  } = useFilters();
 
   const category = ["T-Shirts", "Shirts", "Shorts", "Hoddie", "Jeans"];
   const colors = [
@@ -102,19 +102,22 @@ export const FilterSection = () => {
     }
   };
 
-
   return (
     <div
-      className="h-full w-full rounded-2xl bg-white border-[0.2px] border-gray-300 p-4 flex flex-col justify-start items-center
-     align-baseline gap-4"
+      className="relative h-full w-full rounded-t-2xl lg:rounded-2xl bg-white lg:border-[0.2px] border-gray-300 px-4 lg:p-4 flex flex-col justify-start items-center
+     align-baseline gap-4 overflow-auto lg:overflow-clip"
     >
-      <div className="w-full flex flex-row justify-between items-center">
+      <div className="fixed lg:absolute w-full border-b-[0.2px] lg:bg-none bg-inherit border-gray-300 lg:border-none flex flex-row justify-between items-center p-4 z-50  rounded-t-2xl lg:rounded-none">
         <h2 className="font-satoshi-b text-xl">Filters</h2>
-        <img src={filters} alt="" />
+        <img src={filters} alt="a" className="hidden lg:block" />
+        <IoClose
+          className="block lg:hidden text-gray-500 size-7"
+          onClick={close}
+        />
       </div>
 
       {/* category */}
-      <div className="w-full border-y-[0.2px] border-gray-300">
+      <div className="w-full border-b-[0.2px] lg:border-y-[0.2px] border-gray-300 mt-16 lg:mt">
         <ul className="w-full flex flex-col justify-between items-start py-4 gap-3">
           {category.map((item) => {
             return (
@@ -154,7 +157,7 @@ export const FilterSection = () => {
           {showColors ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </div>
         {showColors && (
-          <div className="w-full grid grid-cols-5 gap-x-6 gap-y-2">
+          <div className="w-full grid md:grid-cols-5 grid-cols-8 gap-x-1 xl:gap-x-6 gap-y-2">
             {colors.map((item, id) => {
               return (
                 <Color
@@ -179,7 +182,7 @@ export const FilterSection = () => {
           {showSize ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </div>
         {showSize && (
-          <div className="w-full flex flex-row flex-wrap justify-start items-center gap-3">
+          <div className="w-full flex flex-row flex-wrap justify-start items-center gap-2 xl:gap-3">
             {sizes.map((item, id) => {
               return (
                 <Size
@@ -187,6 +190,7 @@ export const FilterSection = () => {
                   key={id}
                   onClick={() => handleSizeChange(item)}
                   sizes={Filters.sizes}
+                  disabled={true}
                 />
               );
             })}
@@ -195,16 +199,16 @@ export const FilterSection = () => {
       </div>
 
       {/* dress style */}
-      <div className="w-full flex flex-col justify-start items-center align-baseline py-1">
+      <div className="w-full flex flex-col justify-start items-center align-baseline py-1 mb-20 lg:mb-0 lg:overflow-auto">
         <div
-          className="w-full flex flex-row justify-between items-center cursor-pointer"
+          className="w-full flex flex-row justify-between items-center cursor-pointer "
           onClick={toggleStyle}
         >
           <h2 className="font-satoshi-b text-xl">Dress Style</h2>
           {showSize ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </div>
         {showStyle && (
-          <ul className="w-full max-h-[164px] overflow-auto flex flex-col justify-between items-start py-4 gap-3">
+          <ul className="w-full max-h-[164px] overflow-auto flex flex-col justify-between items-start py-4 gap-3 scrollbar-hidden">
             <div
               className="w-full flex flex-row justify-between items-center align-baseline cursor-pointer"
               onClick={toggleCasual}
@@ -268,7 +272,7 @@ export const FilterSection = () => {
               <li className="font-satoshi-l text-gray-500 cursor-pointer hover:text-slate-900">
                 Gym
               </li>
-              {showParty ? <IoIosArrowDown /> : <IoIosArrowForward />}
+              {showGym ? <IoIosArrowDown /> : <IoIosArrowForward />}
             </div>
             {showGym && (
               <ul className="w-full flex flex-col justify-start items-start gap-2">
@@ -287,30 +291,33 @@ export const FilterSection = () => {
                 })}
               </ul>
             )}
-            {/* <label className="font-satoshi-l text-gray-500 cursor-pointer hover:text-slate-900 flex gap-3">
-              <input
-                type="checkbox"
-                className="accent-gray-300"
-                checked={Filters.style.formal}
-                onChange={(event) => handleStyleFormalChange(event)}
-              />{" "}
-              Formal
-            </label> */}
           </ul>
         )}
       </div>
 
       {/* apply */}
+      <div className="fixed lg:hidden w-full h-auto p-4 z-50 lg:z-0 bottom-0 bg-white lg:bg-none border-t-[0.2px] border-gray-300 lg:border-none">
+        <Button
+          width={"w-full"}
+          height={"h-10"}
+          bg={"bg-black"}
+          textColor={"text-white"}
+          font={"satoshi text-sm"}
+          clickHandler={() => setFilter({ ...Filters })}
+        >
+          Apply Filter
+        </Button>
+      </div>
       <Button
-        width={"w-full"}
-        height={"h-10"}
-        bg={"bg-black"}
-        textColor={"text-white"}
-        font={"satoshi text-sm"}
-        clickHandler={()=> setFilter({...Filters})}
-      >
-        Apply Filter
-      </Button>
+          width={"w-full"}
+          height={"h-10"}
+          bg={"bg-black"}
+          textColor={"text-white"}
+          font={"satoshi text-sm"}
+          clickHandler={() => setFilter({ ...Filters })}
+        >
+          Apply Filter
+        </Button>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { Button } from "../components/products/Button";
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { IoIosArrowRoundBack } from "@react-icons/all-files/io/IoIosArrowRoundBack";
 import { IoIosArrowRoundForward } from "@react-icons/all-files/io/IoIosArrowRoundForward";
+import filter from "../assets/images/filter.png";
 
 import { getProducts } from "../services/getProducts";
 import { getId } from "../services/getId";
@@ -21,6 +22,8 @@ export const Products = () => {
   const [Page, setPage] = useState(1);
   const [TotalPage, setTotalPage] = useState(0);
   const [Loading, setLoading] = useState(true);
+  const [showFilter, setShowFilter] = useState(false);
+  const [showAnimate, setShowAnimate] = useState(false);
 
   const { Filters, setFilter } = useFilters();
 
@@ -119,20 +122,34 @@ export const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (Page === 1) {
-        const data = await getProducts(Filters, 0, 8);
-        setProducts(data);
+      if (window.screen.width >= 768) {
+        if (Page === 1) {
+          const data = await getProducts(Filters, 0, 8);
+          setProducts(data);
+        } else {
+          const data = await getProducts(Filters, (Page - 1) * 9, Page * 9 - 1);
+          setProducts(data);
+        }
       } else {
-        const data = await getProducts(
-          Filters,
-          Page * 10 - 10 - 1,
-          Page * 10 - 3
-        );
-        setProducts(data);
+        if (Page === 1) {
+          const data = await getProducts(Filters, 0, 5);
+          setProducts(data);
+        } else {
+          const data = await getProducts(Filters, (Page - 1) * 6, Page * 6 - 1);
+          setProducts(data);
+        }
       }
     };
     fetchProducts();
   }, [Filters, Page]);
+
+  useEffect(() => {
+    if (showFilter) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  });
 
   const NextPage = (Page) => {
     if (Page <= TotalPage) {
@@ -154,7 +171,7 @@ export const Products = () => {
   const ButtonRender = () => {
     const Buttons = [];
 
-    if (TotalPage <= 8 && TotalPage > 0) {
+    if (TotalPage <= 8 && TotalPage > 0 && window.screen.width >= 768) {
       for (let i = 1; i <= TotalPage; i++) {
         Buttons.push(
           <Button key={i} onClick={() => pageHandler(i)}>
@@ -163,16 +180,31 @@ export const Products = () => {
         );
       }
     } else if (TotalPage > 8) {
-      let leftButtons = [1, 2, 3];
-      let rightButtons = [TotalPage - 3, TotalPage - 2, TotalPage];
+      let leftButtons = [];
+      let rightButtons = [];
 
-      if (Page >= 3 && Page < TotalPage - 3) {
-        leftButtons = [Page - 1, Page, Page + 1];
+      if (window.screen.width > 768) {
+        leftButtons = [1, 2, 3];
+        rightButtons = [TotalPage - 2, TotalPage - 1, TotalPage];
+        if (Page >= 3 && Page < TotalPage - 3) {
+          leftButtons = [Page - 1, Page, Page + 1];
+        }
+      } else {
+        leftButtons = [1, 2];
+        rightButtons = [TotalPage - 1, TotalPage];
+        if (Page >= 2 && Page < TotalPage - 3) {
+          leftButtons = [Page, Page + 1];
+        }
       }
 
       leftButtons.forEach((item) => {
         Buttons.push(
-          <Button key={item} onClick={() => pageHandler(item)}>
+          <Button
+            key={item}
+            onClick={() => pageHandler(item)}
+            clickable={true}
+            checked={Page === item ? true : false}
+          >
             {item}
           </Button>
         );
@@ -186,7 +218,7 @@ export const Products = () => {
 
       rightButtons.forEach((item) => {
         Buttons.push(
-          <Button key={item} onClick={() => pageHandler(item)}>
+          <Button key={item} onClick={() => pageHandler(item)} clickable={true}>
             {item}
           </Button>
         );
@@ -196,8 +228,20 @@ export const Products = () => {
     return Buttons;
   };
 
+  const openFilter = () => {
+    setShowFilter(true);
+    setTimeout(() => setShowAnimate(true), 50);
+  };
+
+  const closeFilter = () => {
+    setShowAnimate(false);
+    setTimeout(() => {
+      setShowFilter(false);
+    }, 1000);
+  };
+
   return (
-    <div className="w-full h-[80rem]">
+    <div className="w-full h-[66rem] md:h-[80rem]">
       <div className="container mx-auto h-full border-t-[0.2px] border-t-gray-300">
         <div className="h-full w-full flex flex-col justify-start items-center">
           {/* Route section */}
@@ -208,28 +252,49 @@ export const Products = () => {
           </div>
 
           {/* content Section */}
-          <div className="w-full h-full flex flex-row justify-between items-start gap-5">
+          <div className="w-full h-full block lg:flex flex-row justify-between items-start gap-5">
             {/*filter section*/}
-            <div className="w-[23%] h-[1140px]">
-              <FilterSection />
+            {showFilter && (
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+            )}
+            <div
+              className={` lg:block lg:w-[23%] lg:h-[1140px] transform transition-transform duration-[1000ms] ${
+                showFilter === true
+                  ? "fixed inset-0 z-[200] overflow-y-auto w-full h-auto top-12 left-0"
+                  : "hidden transform-none"
+              }
+              ${showAnimate ? `translate-y-0` : `translate-y-full`} `}
+            >
+              <FilterSection close={() => closeFilter()} />
             </div>
             {/*products section*/}
-            <div className="w-[77%] h-full flex flex-col justify-start items-center">
+            <div
+              className={`w-full lg:w-[77%] h-full flex flex-col justify-start items-center`}
+            >
               {/*sorting section*/}
               <div className="w-full h-[5%] flex flex-row justify-between items-center">
                 <p className="font-satoshi-b text-3xl">Casual</p>
-                <div className="w-2/5 flex flex-row justify-between items-center">
-                  <p className="font-satoshi-l text-gray-500">{`Showing 1-10 of ${Products.length} Products`}</p>
+                <div className="w-auto flex flex-row justify-end items-center gap-4 md:gap-6">
+                  <p className="hidden md:block font-satoshi-l text-gray-500">{`Showing 1-10 of ${Products.length} Products`}</p>
                   <p className="font-satoshi-l text-gray-500">{`Sort by: Most Popular`}</p>
+                  <div className="size-8 rounded-full bg-gray-200 flex justify-center items-center md:hidden hover:bg-gray-300 transition-all cursor-pointer">
+                    <img
+                      src={filter}
+                      alt="filter"
+                      onClick={() => openFilter()}
+                    />
+                  </div>
                 </div>
               </div>
               {Loading ? (
                 <BarLoader color="#000000" size={30} />
               ) : (
                 <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
-                  <div className="w-full h-full grid grid-cols-3 gap-4">
+                  <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-4">
                     {Products.map((item) => (
-                      <Link to={`/products/product/${item.product_name}/${item.id}`}>
+                      <Link
+                        to={`/products/product/${item.product_name}/${item.id}`}
+                      >
                         <Card
                           name={item.product_name}
                           img={item.image}
@@ -246,15 +311,16 @@ export const Products = () => {
               {/*pagination*/}
               <div className="w-full h-[5%] flex flex-row justify-between items-center">
                 <ButtonPage onClick={() => PreviousPage(Page)} key={1}>
-                  <IoIosArrowRoundBack className="size-8" /> Previous
+                  <IoIosArrowRoundBack className="size-4 xs:size-6 md:size-8" />{" "}
+                  Previous
                 </ButtonPage>
 
-                <div className="h-12 flex flex-row justify-around items-center gap-1">
+                <div className="h-12 mx-3 xs:mx-0 w-full flex flex-row justify-around md:justify-center items-center gap-1 md:gap-5">
                   {ButtonRender()}
                 </div>
 
                 <ButtonPage onClick={() => NextPage(Page)}>
-                  Next <IoIosArrowRoundForward className="size-8" />
+                  Next <IoIosArrowRoundForward className="size-4 xs:size-6" />
                 </ButtonPage>
               </div>
             </div>
