@@ -9,13 +9,13 @@ export const PreviewSection = ({ titr, products, border }) => {
     <div className="w-full h-[42rem] bg-white relative">
       <div className={`w-full h-full mx-auto container ${border}`}>
         <div className="w-full h-full flex flex-col justify-between items-center gap-5 py-14">
-          <h2 className="font-titr text-5xl h-1/6">{titr}</h2>
+          <h2 className="font-titr text-3xl sm:text-5xl h-1/6">{titr}</h2>
           {/*product card */}
 
           {!products ? (
             <BarLoader  color="#000000" size={30} />
           ) : (
-            <div className="w-full h-5/6 grid grid-cols-4 gap-4">
+            <div className="w-full h-5/6 flex lg:grid grid-cols-4 gap-4 overflow-x-auto md:overflow-visible scrollbar-hidden">
               {products.map((item) => (
                 <Card
                   img={item.image}
