@@ -7,6 +7,7 @@ import { FilterSection } from "../components/products/FilterSection";
 import { Card } from "../components/products/Card";
 import { ButtonPage } from "../components/products/ButtonPage";
 import { Button } from "../components/products/Button";
+import { SkeltonCard } from "../components/products/SkeltonCard";
 
 import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowRight";
 import { IoIosArrowRoundBack } from "@react-icons/all-files/io/IoIosArrowRoundBack";
@@ -15,13 +16,13 @@ import filter from "../assets/images/filter.png";
 
 import { getProducts } from "../services/getProducts";
 import { getId } from "../services/getId";
-import { BarLoader } from "react-spinners";
 
 export const Products = () => {
   const [Products, setProducts] = useState([]);
   const [Page, setPage] = useState(1);
   const [TotalPage, setTotalPage] = useState(0);
   const [Loading, setLoading] = useState(true);
+  const [CountProduct, setCountProduct] = useState();
   const [showFilter, setShowFilter] = useState(false);
   const [showAnimate, setShowAnimate] = useState(false);
 
@@ -54,6 +55,7 @@ export const Products = () => {
       const newParams = params.toString();
 
       if (currentParams !== newParams) {
+        setLoading(true)
         navigate({
           pathname: "/products",
           search: newParams,
@@ -108,6 +110,7 @@ export const Products = () => {
 
   useEffect(() => {
     const fetchTotalPage = async () => {
+      setLoading(true);
       const data = await getId(Filters);
       if (data) {
         const totalPages = Math.ceil(data.length / 10);
@@ -123,6 +126,7 @@ export const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (window.screen.width >= 768) {
+        setCountProduct(9)
         if (Page === 1) {
           const data = await getProducts(Filters, 0, 8);
           setProducts(data);
@@ -131,6 +135,7 @@ export const Products = () => {
           setProducts(data);
         }
       } else {
+        setCountProduct(6)
         if (Page === 1) {
           const data = await getProducts(Filters, 0, 5);
           setProducts(data);
@@ -286,12 +291,14 @@ export const Products = () => {
                   </div>
                 </div>
               </div>
-              {Loading ? (
-                <BarLoader color="#000000" size={30} />
-              ) : (
+              
                 <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
                   <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {Products.map((item) => (
+                    { Loading ? Array.from({length: CountProduct}, (_,index)=>(
+                      <SkeltonCard/>
+                    ))
+                    :
+                    Products.map((item) => (
                       <Link
                         to={`/products/product/${item.product_name}/${item.id}`}
                       >
@@ -306,7 +313,7 @@ export const Products = () => {
                     ))}
                   </div>
                 </div>
-              )}
+             
 
               {/*pagination*/}
               <div className="w-full h-[5%] flex flex-row justify-between items-center">
