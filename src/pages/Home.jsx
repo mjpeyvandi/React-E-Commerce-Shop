@@ -32,14 +32,14 @@ export const Home = () => {
   return (
     <div className="w-full h-full">
       {/*header*/}
-      <div className="w-full bg-gray-200 h-[53rem] sm:h-[73rem] md:h-[40rem]">
+      <div className="w-full bg-gray-200 h-[53rem] sm:h-[73rem] lg:h-[40rem]">
         <div className="container mx-auto w-full h-full">
-          <div className="w-full h-full  grid grid-cols-1 md:block md:columns-2 py-6 md:p-0 gap-3 sm:gap-0">
-            <div className="w-full h-full flex flex-col justify-between md:justify-center items-start space-y-6 md:space-y-10">
+          <div className="w-full h-full  grid grid-cols-1 lg:block lg:columns-2 py-6 md:p-0 gap-3 sm:gap-0">
+            <div className="w-full h-full flex flex-col justify-between lg:justify-center items-start space-y-6 lg:space-y-10">
               <p className="w-full md:w-auto font-titr text-4xl sm:text-6xl">
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </p>
-              <p className="w-full md:w-auto font-satoshi-l opacity-85">
+              <p className="w-full lg:w-auto font-satoshi-l opacity-85">
                 Browse through our diverse range of meticulously crafted
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
@@ -47,7 +47,7 @@ export const Home = () => {
               <Button
                 bg={"bg-black"}
                 textColor={"text-white"}
-                width={"w-full md:w-48"}
+                width={"w-full lg:w-48"}
                 height={"h-12"}
                 font={"font-satoshi"}
               >
@@ -84,8 +84,8 @@ export const Home = () => {
       </div>
 
       {/*brands */}
-      <div className="w-full h-auto py-5 md:p-0 md:h-32 bg-black relative">
-        <div className="w-full h-full container mx-auto flex flex-wrap md:flex-nowrap flex-row justify-center md:justify-between items-center gap-4 md:gap-0">
+      <div className="w-full h-auto py-5 lg:p-0 lg:h-32 bg-black relative">
+        <div className="w-full h-full container mx-auto flex flex-wrap md:flex-nowrap flex-row justify-center lg:justify-between items-center gap-4 lg:gap-0">
           <img className="w-24 h-7 md:w-auto md:h-auto" src={versace} alt="brands" />
           <img className="w-24 h-7 md:w-auto md:h-auto" src={zara} alt="brands" />
           <img className="w-24 h-7 md:w-auto md:h-auto" src={gucci} alt="brands" />

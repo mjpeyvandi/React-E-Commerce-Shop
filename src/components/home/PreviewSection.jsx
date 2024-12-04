@@ -6,7 +6,7 @@ import { BarLoader } from "react-spinners";
 
 export const PreviewSection = ({ titr, products, border }) => {
   return (
-    <div className="w-full h-[42rem] bg-white relative">
+    <div className="w-full h-[42rem] lg:h-[42rem] md:h-auto bg-white relative">
       <div className={`w-full h-full mx-auto container ${border}`}>
         <div className="w-full h-full flex flex-col justify-between items-center gap-5 py-14">
           <h2 className="font-titr text-3xl sm:text-5xl h-1/6">{titr}</h2>
@@ -15,7 +15,7 @@ export const PreviewSection = ({ titr, products, border }) => {
           {!products ? (
             <BarLoader  color="#000000" size={30} />
           ) : (
-            <div className="w-full h-5/6 flex lg:grid grid-cols-4 gap-4 overflow-x-auto md:overflow-visible scrollbar-hidden">
+            <div className="w-full h-5/6 flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible scrollbar-hidden">
               {products.map((item) => (
                 <Card
                   img={item.image}
