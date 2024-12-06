@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addToCart } from "../../states/cartSlice";
 import { useDispatch } from "react-redux";
 import { Button } from "../../ui/Button";
+import { SkeltonOrder } from "./SkeltonOrder";
 
 export const Order = () => {
   const { Product } = useProduct();
@@ -72,7 +73,7 @@ export const Order = () => {
       console.log("product not find");
       return;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Product]);
 
   useEffect(() => {
@@ -122,114 +123,126 @@ export const Order = () => {
         });
 
   return (
-    <div className="w-full h-full flex flex-col justify-start gap-3 sm:gap-0 sm:justify-between items-center">
-      {/* details */}
-      <div className="w-full h-[45%] xs:h-[45%]  flex flex-col justify-between items-start gap-3 pb-4 sm:pb-3">
-        <h1 className="font-titr text-2xl xs:text-4xl uppercase">{Product.product_name}</h1>
-        <Rating rate_Product={Product.rate} showNumber={true} sizeStar={7} />
-        <div className="w-full h-[36px] flex flex-row justify-start items-center gap-2">
-          <span className="font-satoshi-b text-xl xs:text-3xl">
-            {Price_with_Discount !== 0
-              ? `$${Price_with_Discount}`
-              : `$${Product.price}`}
-          </span>
-          {Price_with_Discount !== 0 ? (
-            <span className="font-satoshi-b text-gray-400 text-xl xs:text-3xl line-through">
-              ${Product.price}
+    <>
+    {Product && Product.price? 
+    
+  
+      <div className="w-full h-full flex flex-col justify-start gap-3 sm:gap-0 sm:justify-between items-center">
+        {/* details */}
+        <div className="w-full h-[45%] xs:h-[45%]  flex flex-col justify-between items-start gap-3 pb-4 sm:pb-3">
+          <h1 className="font-titr text-2xl xs:text-4xl uppercase">
+            {Product.product_name}
+          </h1>
+          <Rating rate_Product={Product.rate} showNumber={true} sizeStar={7} />
+          <div className="w-full h-[36px] flex flex-row justify-start items-center gap-2">
+            <span className="font-satoshi-b text-xl xs:text-3xl">
+              {Price_with_Discount !== 0
+                ? `$${Price_with_Discount}`
+                : `$${Product.price}`}
             </span>
-          ) : null}
+            {Price_with_Discount !== 0 ? (
+              <span className="font-satoshi-b text-gray-400 text-xl xs:text-3xl line-through">
+                ${Product.price}
+              </span>
+            ) : null}
 
-          {Product.discount !== 0 ? (
-            <span className="w-auto h-full p-2 flex flex-row justify-center items-center px-3 font-satoshi text-sm bg-red-100 text-red-500 rounded-3xl">
-              -{Product.discount}%
-            </span>
-          ) : null}
+            {Product.discount !== 0 ? (
+              <span className="w-auto h-full p-2 flex flex-row justify-center items-center px-3 font-satoshi text-sm bg-red-100 text-red-500 rounded-3xl">
+                -{Product.discount}%
+              </span>
+            ) : null}
+          </div>
+          <p className="w-full sm:w-[90%] font-satoshi text-black opacity-60">
+            {Product.description}
+          </p>
         </div>
-        <p className="w-full sm:w-[90%] font-satoshi text-black opacity-60">
-          {Product.description}
-        </p>
-      </div>
-      {/* color */}
-      <div className="w-full h-auto xs:h-[20%]  flex flex-col justify-center gap-2 items-start border-y-[0.2px] py-4 border-y-gray-300">
-        <span className="font-satoshi text-black opacity-60">
-          Select Colors
-        </span>
-        <div className="w-auto flex flex-row justify-start items-center gap-2">
-          {Colors?.map((color) => {
-            return (
-              <Color
-                value={`${color}`}
-                onClick={() => setSelectColor(color)}
-                checked={selectColor === color ? color : null}
-                // disabled={selectSize ? availableColor.includes(color) : true}
-              />
-            );
-          })}
-        </div>
-      </div>
-      {/* size */}
-      <div className="w-full h-auto xs:h-[20%]  flex flex-col justify-center gap-2 items-start border-b-[0.2px] py-4 border-b-gray-300">
-        <span className="font-satoshi text-black opacity-60">Select Size</span>
-        <div className="w-auto h-auto flex flex-row justify-start items-center xs:flex-nowrap wrap flex-wrap gap-2">
-          {Sizes?.map((size) => {
-            return (
-              <Size
-                value={size}
-                disabled={selectColor ? availableSize.includes(size) : true}
-                checked={selectSize === size ? true : false}
-                onClick={() => setSelectSize(size)}
-              />
-            );
-          })}
-        </div>
-      </div>
-      {/* add to cart */}
-      <div className="w-full h-auto xs:h-[15%] flex flex-row justify-between items-center sm:items-end gap-4 py-4">
-        <div className="w-2/5 sm:w-1/4 h-12 rounded-3xl bg-gray-200 flex flex-row justify-between items-center align-baseline px-5">
-          <button
-            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
-            onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : null)}
-          >
-            -
-          </button>
-          <span className="w-auto h-auto text-2xl font-satoshi">
-            {quantity}
+        {/* color */}
+        <div className="w-full h-auto xs:h-[20%]  flex flex-col justify-center gap-2 items-start border-y-[0.2px] py-4 border-y-gray-300">
+          <span className="font-satoshi text-black opacity-60">
+            Select Colors
           </span>
-          <button
-            className="w-auto h-full text-center text-4xl font-satoshi outline-none"
-            onClick={() => setQuantity(quantity + 1)}
-          >
-            +
-          </button>
-        </div>
-        <Button
-          w={"w-3/5 sm:w-3/4"}
-          h={"h-12"}
-          onClick={() => {
-            notify();
-            if (selectSize) {
-              disPatch(
-                addToCart({
-                  productID: Product.id,
-                  image: Product.image,
-                  name: Product.product_name,
-                  size: selectSize,
-                  color: selectColor,
-                  price:
-                    Price_with_Discount > 0
-                      ? Price_with_Discount
-                      : Product.price,
-                  quantity: quantity,
-                  realPrice: Product.price,
-                })
+          <div className="w-auto flex flex-row justify-start items-center gap-2">
+            {Colors?.map((color) => {
+              return (
+                <Color
+                  value={`${color}`}
+                  onClick={() => setSelectColor(color)}
+                  checked={selectColor === color ? color : null}
+                  // disabled={selectSize ? availableColor.includes(color) : true}
+                />
               );
-            }
-          }}
-        >
-          Add to Cart
-        </Button>
-        <ToastContainer />
+            })}
+          </div>
+        </div>
+        {/* size */}
+        <div className="w-full h-auto xs:h-[20%]  flex flex-col justify-center gap-2 items-start border-b-[0.2px] py-4 border-b-gray-300">
+          <span className="font-satoshi text-black opacity-60">
+            Select Size
+          </span>
+          <div className="w-auto h-auto flex flex-row justify-start items-center xs:flex-nowrap wrap flex-wrap gap-2">
+            {Sizes?.map((size) => {
+              return (
+                <Size
+                  value={size}
+                  disabled={selectColor ? availableSize.includes(size) : true}
+                  checked={selectSize === size ? true : false}
+                  onClick={() => setSelectSize(size)}
+                />
+              );
+            })}
+          </div>
+        </div>
+        {/* add to cart */}
+        <div className="w-full h-auto xs:h-[15%] flex flex-row justify-between items-center sm:items-end gap-4 py-4">
+          <div className="w-2/5 sm:w-1/4 h-12 rounded-3xl bg-gray-200 flex flex-row justify-between items-center align-baseline px-5">
+            <button
+              className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+              onClick={() => (quantity > 1 ? setQuantity(quantity - 1) : null)}
+            >
+              -
+            </button>
+            <span className="w-auto h-auto text-2xl font-satoshi">
+              {quantity}
+            </span>
+            <button
+              className="w-auto h-full text-center text-4xl font-satoshi outline-none"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              +
+            </button>
+          </div>
+          <Button
+            w={"w-3/5 sm:w-3/4"}
+            h={"h-12"}
+            onClick={() => {
+              notify();
+              if (selectSize) {
+                disPatch(
+                  addToCart({
+                    productID: Product.id,
+                    image: Product.image,
+                    name: Product.product_name,
+                    size: selectSize,
+                    color: selectColor,
+                    price:
+                      Price_with_Discount > 0
+                        ? Price_with_Discount
+                        : Product.price,
+                    quantity: quantity,
+                    realPrice: Product.price,
+                  })
+                );
+              }
+            }}
+          >
+            Add to Cart
+          </Button>
+          <ToastContainer />
+        </div>
       </div>
-    </div>
+      :
+      <SkeltonOrder/>
+      }
+    </>
   );
 };
