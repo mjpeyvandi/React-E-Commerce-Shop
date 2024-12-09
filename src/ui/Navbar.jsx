@@ -47,7 +47,7 @@ export const Navbar = ({ setOp, setShowMenu }) => {
           <div className="w-auto flex flex-row justify-between items-center gap-4 md:gap-3">
             <BsSearch className="md:hidden size-6 cursor-pointe" />
             <Link to={"/cart"}>
-              <FiShoppingCart className="size-6 cursor-pointer" />
+              <FiShoppingCart className="size-6 cursor-pointer flex justify-center items-center"/> 
             </Link>
             <FaRegUserCircle className="size-6 cursor-pointer" />
           </div>

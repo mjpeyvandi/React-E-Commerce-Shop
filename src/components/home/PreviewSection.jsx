@@ -6,7 +6,7 @@ import { BarLoader } from "react-spinners";
 
 export const PreviewSection = ({ titr, products, border }) => {
   return (
-    <div className="w-full h-[42rem] lg:h-[42rem] md:h-auto bg-white relative">
+    <div className="w-full h-[35rem] sm:h-[42rem] md:h-auto bg-white relative">
       <div className={`w-full h-full mx-auto container ${border}`}>
         <div className="w-full h-full flex flex-col justify-between items-center gap-5 py-14">
           <h2 className="font-titr text-3xl sm:text-5xl h-1/6">{titr}</h2>

@@ -22,6 +22,9 @@ export const Products = () => {
   const [Page, setPage] = useState(1);
   const [TotalPage, setTotalPage] = useState(0);
   const [Loading, setLoading] = useState(true);
+  const [CountAllProduct, setCountAllProduct] = useState();
+  const [StartProduct, setStartProduct] = useState();
+  const [EndProduct, setEndProduct] = useState();
   const [CountProduct, setCountProduct] = useState();
   const [showFilter, setShowFilter] = useState(false);
   const [showAnimate, setShowAnimate] = useState(false);
@@ -114,6 +117,7 @@ export const Products = () => {
       const data = await getId(Filters);
       if (data) {
         const totalPages = Math.ceil(data.length / 10);
+        setCountAllProduct(data.length)
         setTotalPage(totalPages);
         setPage(1);
       }
@@ -124,9 +128,15 @@ export const Products = () => {
   }, [Filters]);
 
   useEffect(() => {
+    let start = 0
+    let end = 0
     const fetchProducts = async () => {
       if (window.screen.width >= 768) {
         setCountProduct(9)
+        start = (Page - 1) * 9 + 1
+        setStartProduct(start)
+        end = Math.min(Page * 9)
+        setEndProduct(end)
         if (Page === 1) {
           const data = await getProducts(Filters, 0, 8);
           setProducts(data);
@@ -280,7 +290,7 @@ export const Products = () => {
               <div className="w-full h-[5%] flex flex-row justify-between items-center">
                 <p className="font-satoshi-b text-3xl">Casual</p>
                 <div className="w-auto flex flex-row justify-end items-center gap-4 md:gap-6">
-                  <p className="hidden md:block font-satoshi-l text-gray-500">{`Showing 1-10 of ${Products.length} Products`}</p>
+                  <p className="hidden md:block font-satoshi-l text-gray-500">{`Showing ${StartProduct}-${EndProduct} of ${CountAllProduct} Products`}</p>
                   <p className="font-satoshi-l text-gray-500">{`Sort by: Most Popular`}</p>
                   <div className="size-8 rounded-full bg-gray-200 flex justify-center items-center md:hidden hover:bg-gray-300 transition-all cursor-pointer">
                     <img
