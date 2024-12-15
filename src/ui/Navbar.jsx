@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = ({ setOp, setShowMenu }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showSearch, setshowSearch] = useState(false);
   return (
     <>
       <div className="w-full h-14 md:h-20">
@@ -45,7 +46,7 @@ export const Navbar = ({ setOp, setShowMenu }) => {
           </ul>
           <Search />
           <div className="w-auto flex flex-row justify-between items-center gap-4 md:gap-3">
-            <BsSearch className="md:hidden size-6 cursor-pointe" />
+            <BsSearch className="md:hidden size-6 cursor-pointe" onClick={() => setshowSearch(!showSearch)} />
             <Link to={"/cart"}>
               <FiShoppingCart className="size-6 cursor-pointer flex justify-center items-center"/> 
             </Link>

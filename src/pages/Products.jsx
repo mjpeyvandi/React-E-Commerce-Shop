@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFilters from "../context/FiltersContext";
 
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { FilterSection } from "../components/products/FilterSection";
 import { Card } from "../components/products/Card";
@@ -25,11 +25,63 @@ export const Products = () => {
   const [CountAllProduct, setCountAllProduct] = useState();
   const [StartProduct, setStartProduct] = useState();
   const [EndProduct, setEndProduct] = useState();
-  const [CountProduct, setCountProduct] = useState();
+  const [CountProduct, setCountProduct] = useState(6);
   const [showFilter, setShowFilter] = useState(false);
   const [showAnimate, setShowAnimate] = useState(false);
 
   const { Filters, setFilter } = useFilters();
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const ResualtSearched = location.state?.allItems || [];
+    if (ResualtSearched.length > 0) {
+      setLoading(true)
+      // ورود از دکمه "See All"
+      const pageSize = window.innerWidth >= 768 ? 9 : 6; 
+      setCountProduct(pageSize)
+        const start = (Page - 1) * pageSize;
+        setStartProduct(start)
+        const end = Page * pageSize;
+        setEndProduct(end)
+      const totalPages = Math.ceil(ResualtSearched.length / pageSize);
+      setCountAllProduct(ResualtSearched.length);
+      setTotalPage(totalPages);
+      setPage(1); // شروع از صفحه اول
+      setProducts(ResualtSearched.slice(0, pageSize)); // فقط محصولات صفحه اول
+      setLoading(false)
+    }
+  }, [location.state]);
+  
+  // جایگزین useEffect فعلی با این کد
+  useEffect(() => {
+    if (!location.state?.allItems) {
+      // در صورت استفاده از فیلترها یا ورود مستقیم
+      const fetchProducts = async () => {
+        setLoading(true);
+        const pageSize = window.innerWidth >= 768 ? 9 : 6;
+        setCountProduct(pageSize)
+        const start = (Page - 1) * pageSize;
+        setStartProduct(start)
+        const end = Page * pageSize;
+        setEndProduct(end)
+        const data = await getProducts(Filters, start, end - 1);
+        setProducts(data);
+        setLoading(false);
+      };
+  
+      fetchProducts();
+    } else {
+      // مدیریت پیجینیشن برای "See All"
+      const pageSize = window.innerWidth >= 768 ? 9 : 6;
+              setCountProduct(pageSize)
+
+      const start = (Page - 1) * pageSize;
+      const end = Page * pageSize;
+      setProducts(location.state.allItems.slice(start, end));
+    }
+  }, [Filters, Page, location.state]);
+  
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -128,35 +180,22 @@ export const Products = () => {
   }, [Filters]);
 
   useEffect(() => {
-    let start = 0
-    let end = 0
-    const fetchProducts = async () => {
-      if (window.screen.width >= 768) {
-        setCountProduct(9)
-        start = (Page - 1) * 9 + 1
-        setStartProduct(start)
-        end = Math.min(Page * 9)
-        setEndProduct(end)
-        if (Page === 1) {
-          const data = await getProducts(Filters, 0, 8);
-          setProducts(data);
-        } else {
-          const data = await getProducts(Filters, (Page - 1) * 9, Page * 9 - 1);
-          setProducts(data);
-        }
-      } else {
-        setCountProduct(6)
-        if (Page === 1) {
-          const data = await getProducts(Filters, 0, 5);
-          setProducts(data);
-        } else {
-          const data = await getProducts(Filters, (Page - 1) * 6, Page * 6 - 1);
-          setProducts(data);
-        }
-      }
-    };
-    fetchProducts();
-  }, [Filters, Page]);
+    if (!location.state?.allItems) {
+      // در صورت استفاده از فیلترها یا ورود مستقیم
+      const fetchProducts = async () => {
+        setLoading(true);
+        const pageSize = window.innerWidth >= 768 ? 9 : 6;
+        const start = (Page - 1) * pageSize;
+        const end = Page * pageSize - 1;
+  
+        const data = await getProducts(Filters, start, end);
+        setProducts(data);
+        setLoading(false);
+      };
+  
+      fetchProducts();
+    }
+  }, [Filters, Page, location.state]);
 
   useEffect(() => {
     if (showFilter) {
@@ -180,7 +219,6 @@ export const Products = () => {
 
   const pageHandler = (page) => {
     setPage(page);
-    console.log(page);
   };
 
   const ButtonRender = () => {

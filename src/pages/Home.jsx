@@ -131,7 +131,7 @@ export const Home = () => {
 
       {/*reviews section */}
 
-      <div className="w-full h-96 md:h-80 bg-white my-4 md:my-16">
+      <div className="w-full h-72 lg:h-80 md:h-[28rem] bg-white my-8 md:my-16">
         <Slider />
       </div>
     </div>
