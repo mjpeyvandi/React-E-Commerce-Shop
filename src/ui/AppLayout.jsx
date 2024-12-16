@@ -10,7 +10,7 @@ export const AppLayout = ({ children }) => {
   return (
     <div className="w-full h-auto">
       {showMenu && (
-        <div className="fixed inset-0 bg-black h-full opacity-50"></div>
+        <div className="fixed inset-0 bg-black h-full opacity-50" onClick={()=> setShowMenu(false)}></div>
       )}
       <Drawer open={showMenu} setShowMenu={setShowMenu} />
       <header className="container bg-white mx-auto">

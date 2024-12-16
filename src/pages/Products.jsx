@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useFilters from "../context/FiltersContext";
 
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 import { FilterSection } from "../components/products/FilterSection";
 import { Card } from "../components/products/Card";
@@ -31,28 +36,28 @@ export const Products = () => {
 
   const { Filters, setFilter } = useFilters();
 
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     const ResualtSearched = location.state?.allItems || [];
     if (ResualtSearched.length > 0) {
-      setLoading(true)
+      setLoading(true);
       // ورود از دکمه "See All"
-      const pageSize = window.innerWidth >= 768 ? 9 : 6; 
-      setCountProduct(pageSize)
-        const start = (Page - 1) * pageSize;
-        setStartProduct(start)
-        const end = Page * pageSize;
-        setEndProduct(end)
+      const pageSize = window.innerWidth >= 768 ? 9 : 6;
+      setCountProduct(pageSize);
+      const start = (Page - 1) * pageSize;
+      setStartProduct(start);
+      const end = Page * pageSize;
+      setEndProduct(end);
       const totalPages = Math.ceil(ResualtSearched.length / pageSize);
       setCountAllProduct(ResualtSearched.length);
       setTotalPage(totalPages);
       setPage(1); // شروع از صفحه اول
       setProducts(ResualtSearched.slice(0, pageSize)); // فقط محصولات صفحه اول
-      setLoading(false)
+      setLoading(false);
     }
   }, [location.state]);
-  
+
   // جایگزین useEffect فعلی با این کد
   useEffect(() => {
     if (!location.state?.allItems) {
@@ -60,28 +65,27 @@ export const Products = () => {
       const fetchProducts = async () => {
         setLoading(true);
         const pageSize = window.innerWidth >= 768 ? 9 : 6;
-        setCountProduct(pageSize)
+        setCountProduct(pageSize);
         const start = (Page - 1) * pageSize;
-        setStartProduct(start)
+        setStartProduct(start);
         const end = Page * pageSize;
-        setEndProduct(end)
+        setEndProduct(end);
         const data = await getProducts(Filters, start, end - 1);
         setProducts(data);
         setLoading(false);
       };
-  
+
       fetchProducts();
     } else {
       // مدیریت پیجینیشن برای "See All"
       const pageSize = window.innerWidth >= 768 ? 9 : 6;
-              setCountProduct(pageSize)
+      setCountProduct(pageSize);
 
       const start = (Page - 1) * pageSize;
       const end = Page * pageSize;
       setProducts(location.state.allItems.slice(start, end));
     }
   }, [Filters, Page, location.state]);
-  
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -110,7 +114,7 @@ export const Products = () => {
       const newParams = params.toString();
 
       if (currentParams !== newParams) {
-        setLoading(true)
+        setLoading(true);
         navigate({
           pathname: "/products",
           search: newParams,
@@ -169,7 +173,7 @@ export const Products = () => {
       const data = await getId(Filters);
       if (data) {
         const totalPages = Math.ceil(data.length / 10);
-        setCountAllProduct(data.length)
+        setCountAllProduct(data.length);
         setTotalPage(totalPages);
         setPage(1);
       }
@@ -187,12 +191,12 @@ export const Products = () => {
         const pageSize = window.innerWidth >= 768 ? 9 : 6;
         const start = (Page - 1) * pageSize;
         const end = Page * pageSize - 1;
-  
+
         const data = await getProducts(Filters, start, end);
         setProducts(data);
         setLoading(false);
       };
-  
+
       fetchProducts();
     }
   }, [Filters, Page, location.state]);
@@ -308,12 +312,12 @@ export const Products = () => {
           <div className="w-full h-full block lg:flex flex-row justify-between items-start gap-5">
             {/*filter section*/}
             {showFilter && (
-              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="fixed inset-0 bg-black opacity-50" onClick={() => closeFilter()}></div>
             )}
             <div
               className={` lg:block lg:w-[23%] lg:h-[1140px] transform transition-transform duration-[1000ms] ${
                 showFilter === true
-                  ? "fixed inset-0 z-[200] overflow-y-auto w-full h-auto top-12 left-0"
+                  ? "fixed inset-0 z-[200] overflow-y-auto w-full h-auto top-12 left-0 shadow-2xl shadow-white"
                   : "hidden transform-none"
               }
               ${showAnimate ? `translate-y-0` : `translate-y-full`} `}
@@ -339,29 +343,28 @@ export const Products = () => {
                   </div>
                 </div>
               </div>
-              
-                <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
-                  <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-4">
-                    { Loading ? Array.from({length: CountProduct}, (_,index)=>(
-                      <SkeltonCard/>
-                    ))
-                    :
-                    Products.map((item) => (
-                      <Link
-                        to={`/products/product/${item.product_name}/${item.id}`}
-                      >
-                        <Card
-                          name={item.product_name}
-                          img={item.image}
-                          price={item.price}
-                          rate={item.rate}
-                          key={item.id}
-                        />
-                      </Link>
-                    ))}
-                  </div>
+
+              <div className="w-full h-[90%] border-b-[0.2px] border-b-gray-300">
+                <div className="w-full h-full grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {Loading
+                    ? Array.from({ length: CountProduct }, (_, index) => (
+                        <SkeltonCard />
+                      ))
+                    : Products.map((item) => (
+                        <Link
+                          to={`/products/product/${item.product_name}/${item.id}`}
+                        >
+                          <Card
+                            name={item.product_name}
+                            img={item.image}
+                            price={item.price}
+                            rate={item.rate}
+                            key={item.id}
+                          />
+                        </Link>
+                      ))}
                 </div>
-             
+              </div>
 
               {/*pagination*/}
               <div className="w-full h-[5%] flex flex-row justify-between items-center">

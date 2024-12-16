@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Rating } from "../components/home/Rating";
 import { Link } from "react-router-dom";
 
-export const ModalSearch = ({ items, loading, length, allItems }) => {
+export const ModalSearch = ({
+  items,
+  loading,
+  length,
+  allItems,
+  mobile,
+  close,
+}) => {
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(true);
 
@@ -13,9 +20,9 @@ export const ModalSearch = ({ items, loading, length, allItems }) => {
 
   return (
     <div
-      className={`${
-        !showModal ? "hidden" : ""
-      } absolute top-full left-0 max-h-80 w-full flex flex-col justify-start items-center gap-3 overflow-auto mt-1 rounded-3xl pb-2 scrollbar-hidden bg-gray-200 z-[100] shadow-2xl`}
+      className={`${!showModal ? "hidden" : ""} ${
+        mobile ? "z-0 shadow-none h-auto mt-0 rounded-none" : "max-h-80"
+      } absolute top-full left-0  w-full flex flex-col justify-start items-center gap-3 overflow-auto mt-1 rounded-3xl pb-2 scrollbar-hidden bg-gray-200 z-[100] shadow-2xl`}
     >
       {loading ? (
         <div className="w-full h-16 flex justify-center items-center gap-4">
@@ -43,7 +50,13 @@ export const ModalSearch = ({ items, loading, length, allItems }) => {
             <p className="font-satoshi-l">{`Showing ${items.length} of ${length} Results`}</p>
             <Link
               to={`/products`}
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                if (mobile) {
+                  close();
+                } else {
+                  setShowModal(false);
+                }
+              }}
               state={{ allItems }}
               className=" h-full font-satoshi-l font-semibold tracking-wide transition-all hover:text-cyan-600"
             >
@@ -53,6 +66,13 @@ export const ModalSearch = ({ items, loading, length, allItems }) => {
           {searchResults.map((item) => (
             <Link
               to={`/products/product/${item.product_name}/${item.id}`}
+              onClick={() => {
+                if (mobile) {
+                  close();
+                } else {
+                  setShowModal(false);
+                }
+              }}
               className="w-full h-20 px-4"
               key={item.id}
             >
@@ -61,7 +81,7 @@ export const ModalSearch = ({ items, loading, length, allItems }) => {
                   <div className="h-full w-24">
                     <img
                       src={item.image}
-                      className="w-full h-full object-cover object-center bg-gray-200"
+                      className={`w-full h-full object-cover object-center  bg-gray-200`}
                       alt="img"
                     />
                   </div>

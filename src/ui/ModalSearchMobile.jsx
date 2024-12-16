@@ -1,7 +1,10 @@
 import React from 'react'
+import { Search } from './Search'
 
-export const ModalSearchMobile = () => {
+export const ModalSearchMobile = ({close, mobile}) => {
   return (
-    <div>ModalSearchMobile</div>
+    <div className='w-full h-full bg-gray-200 rounded-t-2xl '>
+      <Search close={close} mobile={mobile}/>
+    </div>
   )
 }
