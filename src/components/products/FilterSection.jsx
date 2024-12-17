@@ -102,6 +102,13 @@ export const FilterSection = ({ close }) => {
     }
   };
 
+  const filterHandler = async () => {
+    await setFilter({ ...Filters })
+    setTimeout(() => {
+      close()
+    }, 500);
+  }
+
   return (
     <div
       className="relative h-full w-full rounded-t-2xl lg:rounded-2xl bg-white lg:border-[0.2px] border-gray-300 px-4 lg:p-4 flex flex-col justify-start items-center
@@ -303,21 +310,11 @@ export const FilterSection = ({ close }) => {
           bg={"bg-black"}
           textColor={"text-white"}
           font={"satoshi text-sm"}
-          clickHandler={() => setFilter({ ...Filters })}
+          clickHandler={() => filterHandler()}
         >
           Apply Filter
         </Button>
       </div>
-      <Button
-          width={"w-full"}
-          height={"h-10"}
-          bg={"bg-black"}
-          textColor={"text-white"}
-          font={"satoshi text-sm"}
-          clickHandler={() => setFilter({ ...Filters })}
-        >
-          Apply Filter
-        </Button>
     </div>
   );
 };

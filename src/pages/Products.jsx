@@ -312,7 +312,7 @@ export const Products = () => {
           <div className="w-full h-full block lg:flex flex-row justify-between items-start gap-5">
             {/*filter section*/}
             {showFilter && (
-              <div className="fixed inset-0 bg-black opacity-50" onClick={() => closeFilter()}></div>
+              <div className="fixed inset-0 bg-black opacity-50 z-[100]" onClick={() => closeFilter()}></div>
             )}
             <div
               className={` lg:block lg:w-[23%] lg:h-[1140px] transform transition-transform duration-[1000ms] ${
