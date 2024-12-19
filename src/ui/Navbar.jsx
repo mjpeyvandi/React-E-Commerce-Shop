@@ -54,7 +54,7 @@ export const Navbar = ({ setOp, setShowMenu }) => {
               onMouseEnter={() => setShowModal(true) & setOp(true)}
               onMouseLeave={() => setShowModal(false) & setOp(false)}
             >
-              <Link to={"/products"}>Shop</Link>
+              <span>Shop</span>
               <GoChevronDown />
             </li>
             <li className="h-full flex items-center cursor-pointer hover:font-bold">

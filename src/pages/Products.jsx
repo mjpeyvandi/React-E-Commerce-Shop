@@ -56,6 +56,7 @@ export const Products = () => {
       setProducts(ResualtSearched.slice(0, pageSize)); // فقط محصولات صفحه اول
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);
 
   // جایگزین useEffect فعلی با این کد
@@ -188,6 +189,7 @@ export const Products = () => {
       // در صورت استفاده از فیلترها یا ورود مستقیم
       const fetchProducts = async () => {
         setLoading(true);
+        window.scroll({top:0, behavior: 'smooth'})
         const pageSize = window.innerWidth >= 768 ? 9 : 6;
         const start = (Page - 1) * pageSize;
         const end = Page * pageSize - 1;
@@ -303,7 +305,7 @@ export const Products = () => {
         <div className="h-full w-full flex flex-col justify-start items-center">
           {/* Route section */}
           <div className="w-full h-[5%] flex flex-row justify-start items-center font-satoshi-l gap-2">
-            <p className="text-gray-500">{`Home`}</p>{" "}
+            <Link to={'/'} className="text-gray-500 cursor-pointer transition-all duration-700 hover:text-black">{`Home`}</Link>{" "}
             <MdKeyboardArrowRight className="size-5 opacity-45" />{" "}
             <p>Products</p>
           </div>

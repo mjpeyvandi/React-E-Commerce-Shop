@@ -6,6 +6,7 @@ import { Items } from "../components/cart/Items";
 import { OrderSummary } from "../components/cart/OrderSummary";
 import { useSelector } from "react-redux";
 import { EmptyCart } from "../components/cart/EmptyCart";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const [cartItems, setItems] = useState([]);
@@ -56,7 +57,10 @@ export const Cart = () => {
       <div className="container mx-auto w-full h-auto border-t-[0.2px] border-t-gray-300">
         {/* route section */}
         <div className="w-full h-[48px] flex flex-row justify-start items-center font-satoshi-l gap-2 py-6">
-          <p className="text-gray-500">{`Home`}</p>{" "}
+          <Link
+            to={"/"}
+            className="text-gray-500 cursor-pointer transition-all duration-700 hover:text-black"
+          >{`Home`}</Link>{" "}
           <MdKeyboardArrowRight className="size-5 opacity-45" /> <p>Order</p>
         </div>
         {/* titr section */}

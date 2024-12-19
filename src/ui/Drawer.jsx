@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import { IoIosArrowForward } from "@react-icons/all-files/io/IoIosArrowForward";
-import { Link } from "react-router-dom";
-import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
+import { Link, useNavigate } from "react-router-dom";
+import useFilters from "../context/FiltersContext";
 
 export const Drawer = ({ open, setShowMenu }) => {
   const [showItems, setShowItems] = useState(false);
@@ -19,7 +19,10 @@ export const Drawer = ({ open, setShowMenu }) => {
   const partys = ["maxi", "midi", "mini"];
   const gyms = ["shirt", "short"];
 
+  const navigate = useNavigate();
   const category = ["T-Shirts", "Shirts", "Shorts", "Hoddie", "Jeans"];
+
+  const { setFilter } = useFilters();
 
   const toggleItems = () => {
     setShowItems((showItems) => !showItems);
@@ -68,6 +71,23 @@ export const Drawer = ({ open, setShowMenu }) => {
   const toggleCat = () => {
     setShowStyle(false);
     setShowCat(!showCat);
+  };
+
+  const handleLinkClick = (item, type) => {
+    setFilter({
+      category: [],
+      lowPrice: 0,
+      maxPrice: 500,
+      colors: [],
+      sizes: [],
+      style: {
+        casual: [],
+        party: [],
+        gym: [],
+      },
+    });
+    navigate(`/products?${type}=${item}`);
+    setShowMenu(false)
   };
 
   return (
@@ -138,7 +158,10 @@ export const Drawer = ({ open, setShowMenu }) => {
                       <ul className="w-full flex flex-col justify-start items-start gap-2">
                         {casuals.map((item) => {
                           return (
-                            <li className="font-satoshi text-gray-700 text-base">
+                            <li
+                              className="font-satoshi text-gray-700 text-base"
+                              onClick={() => handleLinkClick(item, "casual")}
+                            >
                               {item}
                             </li>
                           );
@@ -162,7 +185,10 @@ export const Drawer = ({ open, setShowMenu }) => {
                       <ul className="w-full flex flex-col justify-start items-start gap-2">
                         {partys.map((item) => {
                           return (
-                            <li className="font-satoshi text-gray-700 text-base">
+                            <li
+                              className="font-satoshi text-gray-700 text-base"
+                              onClick={() => handleLinkClick(item, "party")}
+                            >
                               {item}
                             </li>
                           );
@@ -186,7 +212,10 @@ export const Drawer = ({ open, setShowMenu }) => {
                       <ul className="w-full flex flex-col justify-start items-start gap-2">
                         {gyms.map((item) => {
                           return (
-                            <li className="font-satoshi text-gray-700 text-base">
+                            <li
+                              className="font-satoshi text-gray-700 text-base"
+                              onClick={() => handleLinkClick(item, "gym")}
+                            >
                               {item}
                             </li>
                           );
@@ -213,7 +242,10 @@ export const Drawer = ({ open, setShowMenu }) => {
                   <ul className="w-full flex flex-col justify-between items-start py-2 gap-3">
                     {category.map((item) => {
                       return (
-                        <li className="font-satoshi text-gray-700 text-base">
+                        <li
+                          className="font-satoshi text-gray-700 text-base"
+                          onClick={() => handleLinkClick(item, "category")}
+                        >
                           {item}
                         </li>
                       );

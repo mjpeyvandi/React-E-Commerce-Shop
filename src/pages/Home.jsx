@@ -18,16 +18,40 @@ import casual from "../assets/images/casual.png";
 import party from "../assets/images/party.png";
 import gym from "../assets/images/gym.png";
 import formal from "../assets/images/formal.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useFilters from "../context/FiltersContext";
 
 export const Home = () => {
   const [newProducts, setNewProducts] = useState([]);
   const [bestSelling, setBestSelling] = useState([]);
+  const { setFilter } = useFilters();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getArrivals().then((data) => setNewProducts(data));
     getTopSell().then((data) => setBestSelling(data));
   }, []);
+
+  const handleLinkClick = (item, type) => {
+    setFilter({
+      category: [],
+      lowPrice: 0,
+      maxPrice: 500,
+      colors: [],
+      sizes: [],
+      style: {
+        casual: [],
+        party: [],
+        gym: [],
+      },
+    });
+    if (item && type) {
+      navigate(`/products?${type}=${item}`);
+    } else {
+      navigate(`/products`);
+    }
+    window.scroll({top:0, behavior: 'smooth'})
+  };
 
   return (
     <div className="w-full h-full">
@@ -86,11 +110,31 @@ export const Home = () => {
       {/*brands */}
       <div className="w-full h-auto py-5 lg:p-0 lg:h-32 bg-black relative">
         <div className="w-full h-full container mx-auto flex flex-wrap md:flex-nowrap flex-row justify-center lg:justify-between items-center gap-4 lg:gap-0">
-          <img className="w-24 h-7 md:w-auto md:h-auto" src={versace} alt="brands" />
-          <img className="w-24 h-7 md:w-auto md:h-auto" src={zara} alt="brands" />
-          <img className="w-24 h-7 md:w-auto md:h-auto" src={gucci} alt="brands" />
-          <img className="w-24 h-7 md:w-auto md:h-auto" src={prada} alt="brands" />
-          <img className="w-24 h-7 md:w-auto md:h-auto" src={calvin} alt="brands" />
+          <img
+            className="w-24 h-7 md:w-auto md:h-auto"
+            src={versace}
+            alt="brands"
+          />
+          <img
+            className="w-24 h-7 md:w-auto md:h-auto"
+            src={zara}
+            alt="brands"
+          />
+          <img
+            className="w-24 h-7 md:w-auto md:h-auto"
+            src={gucci}
+            alt="brands"
+          />
+          <img
+            className="w-24 h-7 md:w-auto md:h-auto"
+            src={prada}
+            alt="brands"
+          />
+          <img
+            className="w-24 h-7 md:w-auto md:h-auto"
+            src={calvin}
+            alt="brands"
+          />
         </div>
       </div>
 
@@ -108,7 +152,9 @@ export const Home = () => {
       <div className="w-full h-[58rem] md:h-[42rem] bg-white mt-4">
         <div className="container w-full h-full bg-gray-100 mx-auto rounded-[2.5rem] px-8 md:px-10 md:py-16">
           <div className="w-full md:h-1/6 text-center py-6 md:p-0">
-            <h2 className="font-titr text-3xl md:text-5xl">BROWSE BY dress STYLE</h2>
+            <h2 className="font-titr text-3xl md:text-5xl">
+              BROWSE BY dress STYLE
+            </h2>
           </div>
           <div className="w-full h-5/6 grid grid-cols-1 md:grid-cols-3 gap-4">
             <CardStyle
@@ -116,15 +162,17 @@ export const Home = () => {
               image={casual}
               text={"Casual"}
               scale={"scale-x-[-1]"}
+              clickHandler={() => handleLinkClick("t-shirt", "casual")}
             />
             <CardStyle
               span={"md:col-span-2"}
               image={formal}
               text={"Formal"}
               scale={"scale-x-[-1]"}
+              clickHandler={() => handleLinkClick()}
             />
-            <CardStyle span={"md:col-span-2"} image={party} text={"Party"} />
-            <CardStyle span={"md:col-span-1"} image={gym} text={"Gym"} />
+            <CardStyle span={"md:col-span-2"} image={party} text={"Party"}  clickHandler={() => handleLinkClick("maxi", "party")} />
+            <CardStyle span={"md:col-span-1"} image={gym} text={"Gym"} clickHandler={() => handleLinkClick("shirt", "gym")} />
           </div>
         </div>
       </div>

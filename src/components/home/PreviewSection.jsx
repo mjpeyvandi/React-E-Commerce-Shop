@@ -3,6 +3,7 @@ import React from "react";
 import { Card } from "./Card";
 import { Button } from "./Button";
 import { BarLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 export const PreviewSection = ({ titr, products, border }) => {
   return (
@@ -13,17 +14,19 @@ export const PreviewSection = ({ titr, products, border }) => {
           {/*product card */}
 
           {!products ? (
-            <BarLoader  color="#000000" size={30} />
+            <BarLoader color="#000000" size={30} />
           ) : (
             <div className="w-full h-5/6 flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto md:overflow-visible scrollbar-hidden">
               {products.map((item) => (
-                <Card
-                  img={item.image}
-                  name={item.product_name}
-                  rate={item.rate}
-                  price={item.price}
-                  key={item.id}
-                />
+                <Link to={`/products/product/${item.product_name}/${item.id}`}>
+                  <Card
+                    img={item.image}
+                    name={item.product_name}
+                    rate={item.rate}
+                    price={item.price}
+                    key={item.id}
+                  />
+                </Link>
               ))}
             </div>
           )}
